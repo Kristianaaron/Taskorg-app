@@ -4,6 +4,8 @@ import { BoardProvider } from './context/BoardContext';
 import { Header } from './components/board/Header';
 import { BoardSidebar } from './components/board/BoardSidebar';
 import { Board } from './components/board/Board';
+import { InstallPrompt } from './components/ui/InstallPrompt';
+import { UpdatePrompt } from './components/ui/UpdatePrompt';
 
 function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -17,6 +19,8 @@ function AppShell() {
           <Board />
         </main>
       </div>
+      <InstallPrompt />
+      <UpdatePrompt />
     </div>
   );
 }

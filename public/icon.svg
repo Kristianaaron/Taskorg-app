@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#6366f1"/>
+  <!-- Kanban columns -->
+  <!-- Left column -->
+  <rect x="72" y="120" width="104" height="20" rx="6" fill="white" opacity="0.9"/>
+  <rect x="72" y="156" width="104" height="52" rx="8" fill="white" opacity="0.85"/>
+  <rect x="72" y="220" width="104" height="52" rx="8" fill="white" opacity="0.65"/>
+  <rect x="72" y="284" width="104" height="52" rx="8" fill="white" opacity="0.45"/>
+  <!-- Middle column -->
+  <rect x="204" y="120" width="104" height="20" rx="6" fill="white" opacity="0.9"/>
+  <rect x="204" y="156" width="104" height="52" rx="8" fill="white" opacity="0.85"/>
+  <rect x="204" y="220" width="104" height="52" rx="8" fill="white" opacity="0.65"/>
+  <!-- Right column -->
+  <rect x="336" y="120" width="104" height="20" rx="6" fill="white" opacity="0.9"/>
+  <rect x="336" y="156" width="104" height="52" rx="8" fill="white" opacity="0.85"/>
+  <!-- Checkmark in right card -->
+  <path d="M360 178 L376 196 L410 164" stroke="#6366f1" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

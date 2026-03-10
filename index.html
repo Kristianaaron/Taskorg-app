@@ -2,8 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- PWA / Web App Manifest (injected by vite-plugin-pwa) -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/pwa-64x64.png" />
+
+    <!-- iOS / iPadOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="TaskOrg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+
+    <!-- iOS splash screens (covers common iPhone/iPad sizes) -->
+    <!-- These are generated as needed; here we reference the 180px icon as fallback -->
+    <link rel="apple-touch-startup-image" href="/apple-touch-icon-180x180.png" />
+
+    <!-- Theme / branding -->
+    <meta name="theme-color" content="#6366f1" />
+    <meta name="msapplication-TileColor" content="#6366f1" />
+    <meta name="description" content="A flexible kanban board for organizing tasks — works offline on iOS and desktop." />
+
     <title>TaskOrg — Kanban Board</title>
   </head>
   <body>
