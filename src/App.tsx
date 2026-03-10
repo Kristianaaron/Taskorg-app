@@ -15,7 +15,7 @@ function AppShell() {
       <Header onMenuClick={() => setSidebarOpen(true)} />
       <div className="flex flex-1 overflow-hidden">
         <BoardSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className="flex-1 flex flex-col overflow-hidden">
+        <main className="flex-1 flex flex-col overflow-hidden safe-area-bottom">
           <Board />
         </main>
       </div>

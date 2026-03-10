@@ -46,7 +46,7 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:relative lg:translate-x-0 lg:shadow-none lg:flex-shrink-0`}
       >
-        <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800">
+        <div className="safe-area-top flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800">
           <div className="flex items-center gap-2">
             <LayoutDashboard size={18} className="text-indigo-600 dark:text-indigo-400" />
             <span className="font-bold text-gray-800 dark:text-gray-100 text-sm">My Boards</span>
