@@ -3,12 +3,18 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
+// When deployed to GitHub Pages the site lives at /Taskorg-app/
+// In dev / other hosts it lives at /
+const base = process.env.GITHUB_ACTIONS ? '/Taskorg-app/' : '/';
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: 'prompt',          // Ask user before updating SW
+      registerType: 'prompt',
+      base,
       includeAssets: [
         'icon.svg',
         'apple-touch-icon-180x180.png',
@@ -26,8 +32,8 @@ export default defineConfig({
         background_color: '#f9fafb',
         display: 'standalone',
         orientation: 'any',
-        scope: '/',
-        start_url: '/',
+        scope: base,
+        start_url: base,
         id: 'taskorg-kanban',
         icons: [
           {
@@ -61,9 +67,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Cache all app shell assets
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-        // Runtime caching for any future API calls
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
