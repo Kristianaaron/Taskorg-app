@@ -3,7 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main          # deploy on every push to main
+      - main
+      - claude/kanban-board-app-Se5Cf
   workflow_dispatch:  # allow manual trigger from the Actions tab
 
 permissions:
