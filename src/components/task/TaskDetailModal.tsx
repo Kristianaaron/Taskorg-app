@@ -100,6 +100,12 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
     onClose();
   };
 
+  const handleSave = () => {
+    if (title.trim() && title !== task.title) save({ title: title.trim() });
+    if (description !== task.description) save({ description });
+    onClose();
+  };
+
   const completed = task.checklistItems.filter(i => i.completed).length;
   const total = task.checklistItems.length;
 
@@ -340,22 +346,28 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
           <p className="text-xs text-gray-400 dark:text-gray-500">
             Created {new Date(task.createdAt).toLocaleDateString()}
           </p>
-          {confirmDelete ? (
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-red-600 dark:text-red-400">Are you sure?</span>
+          <div className="flex items-center gap-2">
+            {confirmDelete ? (
+              <>
+                <span className="text-xs text-red-600 dark:text-red-400">Are you sure?</span>
+                <Button size="sm" variant="danger" onClick={handleDeleteTask}>
+                  Yes, delete
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => setConfirmDelete(false)}>
+                  Cancel
+                </Button>
+              </>
+            ) : (
               <Button size="sm" variant="danger" onClick={handleDeleteTask}>
-                Yes, delete
+                <Trash2 size={13} />
+                Delete
               </Button>
-              <Button size="sm" variant="ghost" onClick={() => setConfirmDelete(false)}>
-                Cancel
-              </Button>
-            </div>
-          ) : (
-            <Button size="sm" variant="danger" onClick={handleDeleteTask}>
-              <Trash2 size={13} />
-              Delete task
+            )}
+            <Button size="sm" variant="primary" onClick={handleSave}>
+              <Check size={13} />
+              Save
             </Button>
-          )}
+          </div>
         </div>
       </div>
     </Modal>
