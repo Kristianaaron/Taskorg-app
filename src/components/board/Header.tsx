@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, Sun, Moon, Monitor, Edit2, Check, X, Trello } from 'lucide-react';
+import { Menu, Sun, Moon, Monitor, Check, X, Trello } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useBoardContext } from '../../context/BoardContext';
 
@@ -54,7 +54,7 @@ export function Header({ onMenuClick }: Props) {
             <div className="flex items-center gap-1.5">
               <input
                 autoFocus
-                className="text-sm font-serif font-semibold bg-gray-50 dark:bg-gray-800 border border-black dark:border-gray-400 rounded-lg px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none w-48"
+                className="text-base font-serif font-semibold bg-gray-50 dark:bg-gray-800 border border-black dark:border-gray-400 rounded-lg px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none w-48"
                 value={titleValue}
                 onChange={e => setTitleValue(e.target.value)}
                 onKeyDown={e => {
@@ -72,10 +72,9 @@ export function Header({ onMenuClick }: Props) {
           ) : (
             <button
               onClick={() => { setTitleValue(activeBoard?.title ?? ''); setIsEditingTitle(true); }}
-              className="flex items-center gap-1.5 text-sm font-serif font-semibold text-gray-800 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors group truncate"
+              className="text-base font-serif font-semibold text-gray-800 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors truncate"
             >
-              <span className="truncate">{activeBoard?.title ?? 'No board'}</span>
-              <Edit2 size={13} className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+              {activeBoard?.title ?? 'No board'}
             </button>
           )}
         </div>

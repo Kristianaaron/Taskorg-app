@@ -7,6 +7,12 @@
   --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
 }
 
+/* Tighter, darker treatment for all serif headings */
+.font-serif {
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+}
+
 * {
   box-sizing: border-box;
 }
