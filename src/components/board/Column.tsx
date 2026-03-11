@@ -107,7 +107,7 @@ export function Column({ column, tasks }: Props) {
             <div className="flex-1 flex gap-1.5">
               <input
                 ref={titleInputRef}
-                className="flex-1 text-sm font-mono font-semibold bg-transparent border-b border-black/30 dark:border-gray-500 px-1 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none"
+                className="flex-1 text-sm font-sans font-semibold bg-transparent border-b border-black/30 dark:border-gray-500 px-1 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none"
                 value={editTitle}
                 onChange={e => setEditTitle(e.target.value)}
                 onKeyDown={e => {
@@ -123,7 +123,7 @@ export function Column({ column, tasks }: Props) {
               </button>
             </div>
           ) : (
-            <h3 className="flex-1 text-sm font-mono font-semibold text-gray-600 dark:text-gray-300 truncate">
+            <h3 className="flex-1 text-sm font-sans font-semibold text-gray-600 dark:text-gray-300 truncate">
               {column.title}
             </h3>
           )}

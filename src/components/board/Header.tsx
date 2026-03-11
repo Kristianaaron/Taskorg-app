@@ -39,7 +39,7 @@ export function Header({ onMenuClick }: Props) {
         </button>
 
         <div className="flex items-center flex-shrink-0">
-          <span className="font-serif font-bold text-gray-900 dark:text-gray-100 text-base hidden sm:block tracking-tight">TaskOrg</span>
+          <span className="font-sans font-bold text-gray-900 dark:text-gray-100 text-base hidden sm:block tracking-tight">TaskOrg</span>
         </div>
 
         <div className="hidden sm:block w-px h-4 bg-black/10 dark:bg-gray-700" />
@@ -49,7 +49,7 @@ export function Header({ onMenuClick }: Props) {
             <div className="flex items-center gap-1.5">
               <input
                 autoFocus
-                className="text-base font-mono font-semibold bg-transparent border-b border-black/30 dark:border-gray-500 px-1 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none w-48"
+                className="text-base font-sans font-semibold bg-transparent border-b border-black/30 dark:border-gray-500 px-1 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none w-48"
                 value={titleValue}
                 onChange={e => setTitleValue(e.target.value)}
                 onKeyDown={e => {
@@ -67,7 +67,7 @@ export function Header({ onMenuClick }: Props) {
           ) : (
             <button
               onClick={() => { setTitleValue(activeBoard?.title ?? ''); setIsEditingTitle(true); }}
-              className="text-base font-mono font-semibold text-gray-700 dark:text-gray-200 hover:text-black dark:hover:text-white transition-colors truncate"
+              className="text-base font-sans font-semibold text-gray-700 dark:text-gray-200 hover:text-black dark:hover:text-white transition-colors truncate"
             >
               {activeBoard?.title ?? 'No board'}
             </button>

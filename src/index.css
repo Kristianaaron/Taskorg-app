@@ -4,20 +4,12 @@
 
 @theme {
   --color-canvas: #F0EDE8;
-  --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* Tighter, darker treatment for all serif headings */
-.font-serif {
+/* Tight tracking on all UI headings */
+.font-sans {
   letter-spacing: -0.02em;
-  color: #0a0a0a;
-}
-
-/* UI heading labels (column titles, board names) */
-.font-mono {
-  letter-spacing: -0.02em;
-  color: #0a0a0a;
 }
 
 * {

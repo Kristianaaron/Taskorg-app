@@ -211,7 +211,7 @@ export function Board() {
         {activeTask && <TaskCard task={activeTask} isOverlay />}
         {activeColumn && (
           <div className="flex-shrink-0 w-72 sm:w-80 bg-white/70 dark:bg-gray-800 border border-black/15 dark:border-gray-600 shadow-md px-4 py-3 opacity-80 rotate-1">
-            <h3 className="text-sm font-mono font-semibold text-gray-700 dark:text-gray-200">{activeColumn.title}</h3>
+            <h3 className="text-sm font-sans font-semibold text-gray-700 dark:text-gray-200">{activeColumn.title}</h3>
           </div>
         )}
       </DragOverlay>
