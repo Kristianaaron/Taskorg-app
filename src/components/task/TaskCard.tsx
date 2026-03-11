@@ -28,7 +28,7 @@ export function TaskCard({ task, isOverlay = false }: Props) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.4 : 1,
+    opacity: isDragging ? 0.35 : 1,
   };
 
   const tags = (activeBoard?.tags ?? []).filter(t => task.tagIds.includes(t.id));
@@ -38,17 +38,15 @@ export function TaskCard({ task, isOverlay = false }: Props) {
 
   const cardContent = (
     <>
-      {/* Drag handle */}
       <div
         {...listeners}
         {...attributes}
-        className="absolute top-2 right-2 p-0.5 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute top-2 right-2 p-0.5 text-gray-200 dark:text-gray-700 hover:text-gray-400 dark:hover:text-gray-500 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity"
         title="Drag to move"
       >
-        <GripVertical size={14} />
+        <GripVertical size={13} />
       </div>
 
-      {/* Tags */}
       {tags.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-2">
           {tags.map(tag => (
@@ -57,28 +55,26 @@ export function TaskCard({ task, isOverlay = false }: Props) {
         </div>
       )}
 
-      {/* Title */}
-      <p className="text-sm font-medium text-gray-800 dark:text-gray-100 leading-snug pr-5">
+      <p className="text-sm text-gray-700 dark:text-gray-200 leading-snug pr-5">
         {task.title}
       </p>
 
-      {/* Meta */}
       {(hasDescription || checklistTotal > 0) && (
         <div className="flex items-center gap-3 mt-2">
           {hasDescription && (
-            <span className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
-              <MessageSquare size={12} />
+            <span className="flex items-center gap-1 text-xs text-gray-300 dark:text-gray-600">
+              <MessageSquare size={11} />
             </span>
           )}
           {checklistTotal > 0 && (
             <span
-              className={`flex items-center gap-1 text-xs font-medium ${
+              className={`flex items-center gap-1 text-xs ${
                 checklistDone === checklistTotal
-                  ? 'text-green-600 dark:text-green-400'
-                  : 'text-gray-400 dark:text-gray-500'
+                  ? 'text-gray-500 dark:text-gray-400'
+                  : 'text-gray-300 dark:text-gray-600'
               }`}
             >
-              <CheckSquare size={12} />
+              <CheckSquare size={11} />
               {checklistDone}/{checklistTotal}
             </span>
           )}
@@ -89,7 +85,7 @@ export function TaskCard({ task, isOverlay = false }: Props) {
 
   if (isOverlay) {
     return (
-      <div className="relative group bg-white dark:bg-gray-800 border-2 border-black dark:border-gray-400 brutal-shadow-md p-3 cursor-grabbing rotate-1 scale-105">
+      <div className="relative group bg-white dark:bg-gray-800 border border-black/20 dark:border-gray-600 shadow-md p-3 cursor-grabbing rotate-1 scale-102">
         {cardContent}
       </div>
     );
@@ -101,7 +97,7 @@ export function TaskCard({ task, isOverlay = false }: Props) {
         ref={setNodeRef}
         style={style}
         onClick={() => !isDragging && setIsModalOpen(true)}
-        className="relative group bg-white dark:bg-gray-800 border border-black/20 dark:border-gray-600 hover:border-black dark:hover:border-gray-400 hover:shadow-[2px_2px_0_0_#000] dark:hover:shadow-[2px_2px_0_0_rgba(255,255,255,0.3)] p-3 cursor-pointer transition-colors mt-2"
+        className="relative group bg-white dark:bg-gray-800 border border-black/8 dark:border-gray-700 hover:border-black/20 dark:hover:border-gray-500 p-3 cursor-pointer transition-colors mt-2 first:mt-0"
       >
         {cardContent}
       </div>

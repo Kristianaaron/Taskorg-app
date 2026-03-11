@@ -38,34 +38,34 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
       role="dialog"
       aria-modal="true"
     >
-      {/* Backdrop — solid, no blur */}
+      {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/60"
+        className="absolute inset-0 bg-black/40"
         onClick={onClose}
       />
-      {/* Panel — square, hard border, offset shadow */}
+      {/* Panel */}
       <div
-        className={`relative w-full ${sizeClass} bg-white dark:bg-gray-900 border-2 border-black dark:border-white brutal-shadow-md overflow-hidden`}
+        className={`relative w-full ${sizeClass} bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 shadow-lg overflow-hidden`}
       >
         {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b-2 border-black dark:border-white">
-            <h2 className="text-lg font-mono font-semibold text-gray-900 dark:text-gray-100">{title}</h2>
+          <div className="flex items-center justify-between px-6 py-4 border-b border-black/8 dark:border-gray-800">
+            <h2 className="text-base font-mono font-semibold text-gray-900 dark:text-gray-100">{title}</h2>
             <button
               onClick={onClose}
-              className="p-1 text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+              className="p-1 text-gray-300 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               aria-label="Close"
             >
-              <X size={18} />
+              <X size={16} />
             </button>
           </div>
         )}
         {!title && (
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 z-10 p-1 text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+            className="absolute top-3 right-3 z-10 p-1 text-gray-300 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             aria-label="Close"
           >
-            <X size={18} />
+            <X size={16} />
           </button>
         )}
         <div className="overflow-y-auto max-h-[75vh]">

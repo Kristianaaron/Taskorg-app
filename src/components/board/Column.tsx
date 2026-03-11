@@ -37,7 +37,7 @@ export function Column({ column, tasks }: Props) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.4 : 1,
+    opacity: isDragging ? 0.35 : 1,
   };
 
   useEffect(() => {
@@ -91,23 +91,23 @@ export function Column({ column, tasks }: Props) {
       style={style}
       className="flex-shrink-0 w-72 sm:w-80 flex flex-col"
     >
-      <div className="bg-gray-100 dark:bg-gray-800 border-2 border-black dark:border-gray-600 flex flex-col max-h-[calc(100vh-10rem)]">
+      <div className={`bg-white/50 dark:bg-gray-800/40 border border-black/10 dark:border-gray-700 flex flex-col max-h-[calc(100vh-10rem)] transition-colors ${isOver ? 'bg-white/80 dark:bg-gray-800/60' : ''}`}>
         {/* Column header */}
-        <div className="flex items-center gap-2 px-3 py-3 flex-shrink-0 border-b border-black/10 dark:border-gray-600">
+        <div className="flex items-center gap-2 px-3 py-2.5 flex-shrink-0 border-b border-black/6 dark:border-gray-700/60">
           <div
             {...listeners}
             {...attributes}
-            className="p-0.5 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 cursor-grab active:cursor-grabbing"
+            className="p-0.5 text-gray-200 dark:text-gray-700 hover:text-gray-400 dark:hover:text-gray-500 cursor-grab active:cursor-grabbing"
             title="Drag to reorder"
           >
-            <GripVertical size={15} />
+            <GripVertical size={14} />
           </div>
 
           {isEditingTitle ? (
             <div className="flex-1 flex gap-1.5">
               <input
                 ref={titleInputRef}
-                className="flex-1 text-sm font-mono font-semibold bg-white dark:bg-gray-700 border-b-2 border-black dark:border-white px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none"
+                className="flex-1 text-sm font-mono font-semibold bg-transparent border-b border-black/30 dark:border-gray-500 px-1 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none"
                 value={editTitle}
                 onChange={e => setEditTitle(e.target.value)}
                 onKeyDown={e => {
@@ -115,45 +115,44 @@ export function Column({ column, tasks }: Props) {
                   if (e.key === 'Escape') { setEditTitle(column.title); setIsEditingTitle(false); }
                 }}
               />
-              <button onClick={handleSaveTitle} className="text-green-600 hover:text-green-700">
-                <Check size={14} />
+              <button onClick={handleSaveTitle} className="text-gray-400 hover:text-gray-700">
+                <Check size={13} />
               </button>
-              <button onClick={() => { setEditTitle(column.title); setIsEditingTitle(false); }} className="text-gray-400 hover:text-gray-600">
-                <X size={14} />
+              <button onClick={() => { setEditTitle(column.title); setIsEditingTitle(false); }} className="text-gray-300 hover:text-gray-500">
+                <X size={13} />
               </button>
             </div>
           ) : (
-            <h3 className="flex-1 text-sm font-mono font-semibold text-gray-700 dark:text-gray-200 truncate">
+            <h3 className="flex-1 text-sm font-mono font-semibold text-gray-600 dark:text-gray-300 truncate">
               {column.title}
             </h3>
           )}
 
-          <span className="text-xs font-medium text-gray-500 dark:text-gray-400 border border-gray-400 dark:border-gray-500 px-1.5 py-0.5 flex-shrink-0">
+          <span className="text-xs text-gray-400 dark:text-gray-500 flex-shrink-0 tabular-nums">
             {tasks.length}
           </span>
 
-          {/* Column menu */}
           <div className="relative" ref={menuRef}>
             <button
               onClick={() => setShowMenu(p => !p)}
-              className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="p-1 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors"
             >
-              <MoreVertical size={15} />
+              <MoreVertical size={14} />
             </button>
             {showMenu && (
-              <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-900 border-2 border-black dark:border-gray-500 brutal-shadow py-1 min-w-[150px]">
+              <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 shadow-sm py-1 min-w-[140px]">
                 <button
-                  className="w-full text-left flex items-center gap-2 px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="w-full text-left flex items-center gap-2 px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                   onClick={() => { setIsEditingTitle(true); setShowMenu(false); }}
                 >
-                  <Edit2 size={13} />
+                  <Edit2 size={12} />
                   Rename column
                 </button>
                 <button
-                  className="w-full text-left flex items-center gap-2 px-3 py-1.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  className="w-full text-left flex items-center gap-2 px-3 py-1.5 text-xs text-red-500 dark:text-red-400 hover:bg-gray-50 dark:hover:bg-gray-800"
                   onClick={() => { deleteColumn(column.id); setShowMenu(false); }}
                 >
-                  <Trash2 size={13} />
+                  <Trash2 size={12} />
                   Delete column
                 </button>
               </div>
@@ -164,9 +163,7 @@ export function Column({ column, tasks }: Props) {
         {/* Task list */}
         <div
           ref={setDroppableRef}
-          className={`flex-1 overflow-y-auto px-2 pb-2 space-y-2 min-h-[60px] transition-colors ${
-            isOver ? 'bg-gray-200/50 dark:bg-gray-700/30' : ''
-          }`}
+          className="flex-1 overflow-y-auto px-2 pb-2 space-y-0 min-h-[60px]"
         >
           <SortableContext items={taskIds} strategy={verticalListSortingStrategy}>
             {sortedTasks.map(task => (
@@ -175,8 +172,8 @@ export function Column({ column, tasks }: Props) {
           </SortableContext>
 
           {tasks.length === 0 && !isAddingTask && (
-            <div className={`flex items-center justify-center h-16 border-2 border-dashed text-xs text-gray-400 dark:text-gray-600 transition-colors ${isOver ? 'border-gray-500 text-gray-500' : 'border-gray-300 dark:border-gray-700'}`}>
-              {isOver ? 'Drop here' : 'No tasks yet'}
+            <div className={`flex items-center justify-center h-16 border border-dashed text-xs transition-colors ${isOver ? 'border-black/30 text-gray-500' : 'border-black/10 dark:border-gray-700 text-gray-300 dark:text-gray-600'}`}>
+              {isOver ? 'Drop here' : 'Empty'}
             </div>
           )}
         </div>
@@ -184,10 +181,10 @@ export function Column({ column, tasks }: Props) {
         {/* Add task */}
         <div className="px-2 pb-2 flex-shrink-0">
           {isAddingTask ? (
-            <div className="bg-white dark:bg-gray-900 border-2 border-black dark:border-gray-500 p-2">
+            <div className="bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 p-2.5">
               <input
                 ref={addInputRef}
-                className="w-full text-sm bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-400 focus:outline-none mb-2"
+                className="w-full text-sm bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-300 focus:outline-none mb-2"
                 placeholder="Task title..."
                 value={newTaskTitle}
                 onChange={e => setNewTaskTitle(e.target.value)}
@@ -201,22 +198,22 @@ export function Column({ column, tasks }: Props) {
                   onClick={handleAddTask}
                   className="flex-1 text-xs bg-black hover:bg-gray-800 text-white dark:bg-white dark:text-black dark:hover:bg-gray-100 px-2 py-1 transition-colors"
                 >
-                  Add task
+                  Add
                 </button>
                 <button
                   onClick={() => { setIsAddingTask(false); setNewTaskTitle(''); }}
-                  className="px-2 py-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="px-2 py-1 text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
                 >
-                  <X size={14} />
+                  <X size={13} />
                 </button>
               </div>
             </div>
           ) : (
             <button
               onClick={() => setIsAddingTask(true)}
-              className="w-full flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-200/60 dark:hover:bg-gray-700/60 px-2 py-1.5 transition-colors"
+              className="w-full flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 px-2 py-1.5 transition-colors"
             >
-              <Plus size={14} />
+              <Plus size={13} />
               Add task
             </button>
           )}

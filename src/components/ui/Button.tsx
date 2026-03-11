@@ -12,13 +12,13 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const base = 'inline-flex items-center gap-1.5 font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white disabled:opacity-50 disabled:cursor-not-allowed border';
+  const base = 'inline-flex items-center gap-1.5 font-medium transition-colors focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed';
 
   const variants = {
-    primary: 'bg-black hover:bg-gray-800 text-white border-black dark:bg-white dark:hover:bg-gray-100 dark:text-black dark:border-white',
-    secondary: 'bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 border-gray-400 dark:border-gray-500',
-    ghost: 'border-transparent hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400',
-    danger: 'bg-transparent hover:bg-red-50 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 border-red-400 dark:border-red-600',
+    primary: 'bg-black hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-black',
+    secondary: 'bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 border border-black/15 dark:border-gray-600',
+    ghost: 'border-transparent hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400',
+    danger: 'bg-transparent hover:bg-red-50 dark:hover:bg-red-900/20 text-red-500 dark:text-red-400',
   };
 
   const sizes = {

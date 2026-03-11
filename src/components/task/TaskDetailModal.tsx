@@ -115,7 +115,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
         {/* Title */}
         <div>
           <input
-            className="w-full text-xl font-bold bg-transparent border-0 border-b-2 border-transparent focus:border-black dark:focus:border-white focus:outline-none text-gray-900 dark:text-gray-100 pb-1 transition-colors"
+            className="w-full text-xl font-bold bg-transparent border-0 border-b border-transparent focus:border-black/30 dark:focus:border-gray-500 focus:outline-none text-gray-900 dark:text-gray-100 pb-1 transition-colors"
             value={title}
             onChange={e => setTitle(e.target.value)}
             onBlur={handleTitleBlur}
@@ -150,7 +150,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
           </div>
 
           {showTagPanel && (
-            <div className="mt-2 p-3 border-2 border-black dark:border-gray-600 bg-gray-50 dark:bg-gray-900/40 space-y-3">
+            <div className="mt-2 p-3 border border-black/10 dark:border-gray-700 bg-gray-50/60 dark:bg-gray-900/40 space-y-3">
               {/* Available tags to toggle */}
               {availableTags.length > 0 && (
                 <div>
@@ -178,7 +178,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                 <p className="text-xs text-gray-500 dark:text-gray-400 mb-1.5">Create new tag:</p>
                 <div className="flex gap-2 flex-wrap">
                   <input
-                    className="flex-1 min-w-[100px] text-xs px-2.5 py-1.5 border border-black dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:border-black"
+                    className="flex-1 min-w-[100px] text-xs px-2.5 py-1.5 border border-black/15 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:border-black/40"
                     placeholder="Tag name"
                     value={newTagName}
                     onChange={e => setNewTagName(e.target.value)}
@@ -187,7 +187,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                   <select
                     value={newTagColor}
                     onChange={e => setNewTagColor(e.target.value as TagColor)}
-                    className="text-xs px-2 py-1.5 border border-black dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none"
+                    className="text-xs px-2 py-1.5 border border-black/15 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none"
                   >
                     {TAG_COLOR_OPTIONS.map(o => (
                       <option key={o.value} value={o.value}>{o.label}</option>
@@ -242,7 +242,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
             </span>
           </div>
           <textarea
-            className="w-full text-sm bg-gray-50 dark:bg-gray-900/40 border border-black dark:border-gray-600 px-3 py-2 text-gray-800 dark:text-gray-200 resize-none focus:outline-none focus:border-black placeholder-gray-400 min-h-[80px]"
+            className="w-full text-sm bg-gray-50/60 dark:bg-gray-900/40 border border-black/10 dark:border-gray-700 px-3 py-2 text-gray-800 dark:text-gray-200 resize-none focus:outline-none focus:border-black/30 placeholder-gray-300 min-h-[80px]"
             value={description}
             onChange={e => setDescription(e.target.value)}
             onBlur={handleDescriptionBlur}
@@ -290,7 +290,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                   <div className="flex-1 flex gap-1.5">
                     <input
                       autoFocus
-                      className="flex-1 text-sm bg-gray-50 dark:bg-gray-900/40 border-b-2 border-black dark:border-white px-2 py-0.5 text-gray-800 dark:text-gray-200 focus:outline-none"
+                      className="flex-1 text-sm bg-transparent border-b border-black/25 dark:border-gray-500 px-1 py-0.5 text-gray-800 dark:text-gray-200 focus:outline-none"
                       value={editingItemText}
                       onChange={e => setEditingItemText(e.target.value)}
                       onKeyDown={e => {
@@ -328,7 +328,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
           <div className="flex gap-2 mt-2">
             <input
               ref={checklistInputRef}
-              className="flex-1 text-sm bg-gray-50 dark:bg-gray-900/40 border border-black dark:border-gray-600 px-3 py-1.5 text-gray-800 dark:text-gray-200 focus:outline-none focus:border-black placeholder-gray-400"
+              className="flex-1 text-sm bg-gray-50/60 dark:bg-gray-900/40 border border-black/10 dark:border-gray-700 px-3 py-1.5 text-gray-800 dark:text-gray-200 focus:outline-none focus:border-black/30 placeholder-gray-300"
               placeholder="Add an item..."
               value={newChecklistText}
               onChange={e => setNewChecklistText(e.target.value)}
@@ -342,7 +342,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-2 border-t-2 border-black dark:border-gray-700">
+        <div className="flex items-center justify-between pt-2 border-t border-black/8 dark:border-gray-800">
           <p className="text-xs text-gray-400 dark:text-gray-500">
             Created {new Date(task.createdAt).toLocaleDateString()}
           </p>

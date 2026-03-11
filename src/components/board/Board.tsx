@@ -166,10 +166,10 @@ export function Board() {
           {/* Add column */}
           {isAddingColumn ? (
             <div className="flex-shrink-0 w-72 sm:w-80">
-              <div className="bg-gray-100 dark:bg-gray-800 border-2 border-black dark:border-gray-500 p-3">
+              <div className="bg-white/60 dark:bg-gray-800/60 border border-black/10 dark:border-gray-700 p-3">
                 <input
                   autoFocus
-                  className="w-full text-sm font-semibold bg-transparent border-0 border-b-2 border-black dark:border-gray-500 pb-1 mb-3 text-gray-800 dark:text-gray-100 placeholder-gray-400 focus:outline-none"
+                  className="w-full text-sm font-semibold bg-transparent border-0 border-b border-black/20 dark:border-gray-600 pb-1 mb-3 text-gray-800 dark:text-gray-100 placeholder-gray-300 focus:outline-none"
                   placeholder="Column title..."
                   value={newColumnTitle}
                   onChange={e => setNewColumnTitle(e.target.value)}
@@ -197,7 +197,7 @@ export function Board() {
           ) : (
             <button
               onClick={() => setIsAddingColumn(true)}
-              className="flex-shrink-0 w-72 sm:w-80 flex items-center gap-2 px-4 py-3 bg-gray-100/60 dark:bg-gray-800/40 hover:bg-gray-200/60 dark:hover:bg-gray-700/40 border-2 border-dashed border-gray-400 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+              className="flex-shrink-0 w-72 sm:w-80 flex items-center gap-2 px-4 py-3 hover:bg-white/40 dark:hover:bg-gray-800/40 border border-dashed border-black/15 dark:border-gray-700 text-sm text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               <Plus size={16} />
               Add column
@@ -210,7 +210,7 @@ export function Board() {
       <DragOverlay>
         {activeTask && <TaskCard task={activeTask} isOverlay />}
         {activeColumn && (
-          <div className="flex-shrink-0 w-72 sm:w-80 bg-gray-100 dark:bg-gray-800 border-2 border-black dark:border-gray-400 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_rgba(255,255,255,0.3)] px-4 py-3 opacity-90 rotate-1">
+          <div className="flex-shrink-0 w-72 sm:w-80 bg-white/70 dark:bg-gray-800 border border-black/15 dark:border-gray-600 shadow-md px-4 py-3 opacity-80 rotate-1">
             <h3 className="text-sm font-mono font-semibold text-gray-700 dark:text-gray-200">{activeColumn.title}</h3>
           </div>
         )}
