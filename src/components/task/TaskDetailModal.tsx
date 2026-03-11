@@ -162,7 +162,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                         <button
                           key={tag.id}
                           onClick={() => toggleTag(tag)}
-                          className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 border transition-opacity hover:opacity-80 ${c.bg} ${c.text} ${c.border}`}
+                          className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full border transition-opacity hover:opacity-80 ${c.bg} ${c.text} ${c.border}`}
                         >
                           <Plus size={10} />
                           {tag.name}
@@ -211,7 +211,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                         <div key={tag.id} className="flex items-center gap-1">
                           <button
                             onClick={() => toggleTag(tag)}
-                            className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 border transition-all ${c.bg} ${c.text} ${c.border} ${isOn ? 'ring-2 ring-black ring-offset-1' : 'opacity-60 hover:opacity-100'}`}
+                            className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full border transition-all ${c.bg} ${c.text} ${c.border} ${isOn ? 'ring-2 ring-black ring-offset-1' : 'opacity-60 hover:opacity-100'}`}
                           >
                             {isOn && <Check size={10} />}
                             {tag.name}

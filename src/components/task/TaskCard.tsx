@@ -85,7 +85,7 @@ export function TaskCard({ task, isOverlay = false }: Props) {
 
   if (isOverlay) {
     return (
-      <div className="relative group bg-white dark:bg-gray-800 border border-black/20 dark:border-gray-600 shadow-md p-3 cursor-grabbing rotate-1 scale-102">
+      <div className="relative group bg-white dark:bg-gray-800 border border-black/20 dark:border-gray-600 rounded-sm shadow-md p-3 cursor-grabbing rotate-1 scale-102">
         {cardContent}
       </div>
     );
@@ -97,7 +97,7 @@ export function TaskCard({ task, isOverlay = false }: Props) {
         ref={setNodeRef}
         style={style}
         onClick={() => !isDragging && setIsModalOpen(true)}
-        className="relative group bg-white dark:bg-gray-800 border border-black/8 dark:border-gray-700 hover:border-black/20 dark:hover:border-gray-500 p-3 cursor-pointer transition-colors mt-2 first:mt-0"
+        className="relative group bg-white dark:bg-gray-800 border border-black/8 dark:border-gray-700 hover:border-black/20 dark:hover:border-gray-500 rounded-sm p-3 cursor-pointer transition-colors mt-2 first:mt-0"
       >
         {cardContent}
       </div>

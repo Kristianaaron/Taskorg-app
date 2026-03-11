@@ -166,7 +166,7 @@ export function Board() {
           {/* Add column */}
           {isAddingColumn ? (
             <div className="flex-shrink-0 w-72 sm:w-80">
-              <div className="bg-white/60 dark:bg-gray-800/60 border border-black/10 dark:border-gray-700 p-3">
+              <div className="bg-white/60 dark:bg-gray-800/60 border border-black/10 dark:border-gray-700 rounded-sm p-3">
                 <input
                   autoFocus
                   className="w-full text-sm font-semibold bg-transparent border-0 border-b border-black/20 dark:border-gray-600 pb-1 mb-3 text-gray-800 dark:text-gray-100 placeholder-gray-300 focus:outline-none"

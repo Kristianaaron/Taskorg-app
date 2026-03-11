@@ -98,7 +98,7 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
           ))}
 
           {isCreating ? (
-            <div className="mt-3 p-2.5 border border-black/10 dark:border-gray-700 bg-white/40 dark:bg-gray-800/40">
+            <div className="mt-3 p-2.5 border border-black/10 dark:border-gray-700 rounded-sm bg-white/40 dark:bg-gray-800/40">
               <input
                 autoFocus
                 className="w-full text-sm bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-300 focus:outline-none mb-2"

@@ -91,7 +91,7 @@ export function Column({ column, tasks }: Props) {
       style={style}
       className="flex-shrink-0 w-72 sm:w-80 flex flex-col"
     >
-      <div className={`bg-white/50 dark:bg-gray-800/40 border border-black/10 dark:border-gray-700 flex flex-col max-h-[calc(100vh-10rem)] transition-colors ${isOver ? 'bg-white/80 dark:bg-gray-800/60' : ''}`}>
+      <div className={`bg-white/50 dark:bg-gray-800/40 border border-black/10 dark:border-gray-700 rounded-sm flex flex-col max-h-[calc(100vh-10rem)] transition-colors ${isOver ? 'bg-white/80 dark:bg-gray-800/60' : ''}`}>
         {/* Column header */}
         <div className="flex items-center gap-2 px-3 py-2.5 flex-shrink-0 border-b border-black/6 dark:border-gray-700/60">
           <div
@@ -140,7 +140,7 @@ export function Column({ column, tasks }: Props) {
               <MoreVertical size={14} />
             </button>
             {showMenu && (
-              <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 shadow-sm py-1 min-w-[140px]">
+              <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 rounded-sm shadow-sm py-1 min-w-[140px]">
                 <button
                   className="w-full text-left flex items-center gap-2 px-3 py-1.5 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                   onClick={() => { setIsEditingTitle(true); setShowMenu(false); }}
@@ -163,7 +163,7 @@ export function Column({ column, tasks }: Props) {
         {/* Task list */}
         <div
           ref={setDroppableRef}
-          className="flex-1 overflow-y-auto px-2 pb-2 space-y-0 min-h-[60px]"
+          className="flex-1 overflow-y-auto px-2 pt-2 pb-2 space-y-0 min-h-[60px]"
         >
           <SortableContext items={taskIds} strategy={verticalListSortingStrategy}>
             {sortedTasks.map(task => (
@@ -181,7 +181,7 @@ export function Column({ column, tasks }: Props) {
         {/* Add task */}
         <div className="px-2 pb-2 flex-shrink-0">
           {isAddingTask ? (
-            <div className="bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 p-2.5">
+            <div className="bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 rounded-sm p-2.5">
               <input
                 ref={addInputRef}
                 className="w-full text-sm bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-300 focus:outline-none mb-2"
