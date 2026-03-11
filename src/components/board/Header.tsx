@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, Sun, Moon, Monitor, Check, X, Trello } from 'lucide-react';
+import { Menu, Sun, Moon, Monitor, Check, X } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useBoardContext } from '../../context/BoardContext';
 
@@ -40,8 +40,7 @@ export function Header({ onMenuClick }: Props) {
         </button>
 
         {/* Logo */}
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <Trello size={20} className="text-black dark:text-white" />
+        <div className="flex items-center flex-shrink-0">
           <span className="font-serif font-bold text-gray-900 dark:text-gray-100 text-base hidden sm:block tracking-tight">TaskOrg</span>
         </div>
 
