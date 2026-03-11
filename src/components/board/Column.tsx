@@ -108,7 +108,7 @@ export function Column({ column, tasks }: Props) {
             <div className="flex-1 flex gap-1.5">
               <input
                 ref={titleInputRef}
-                className="flex-1 text-sm font-semibold bg-white dark:bg-gray-700 border border-indigo-400 rounded px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none"
+                className="flex-1 text-sm font-serif font-semibold bg-white dark:bg-gray-700 border border-black dark:border-gray-400 rounded px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none"
                 value={editTitle}
                 onChange={e => setEditTitle(e.target.value)}
                 onKeyDown={e => {
@@ -124,7 +124,7 @@ export function Column({ column, tasks }: Props) {
               </button>
             </div>
           ) : (
-            <h3 className="flex-1 text-sm font-semibold text-gray-700 dark:text-gray-200 truncate">
+            <h3 className="flex-1 text-sm font-serif font-semibold text-gray-700 dark:text-gray-200 truncate">
               {column.title}
             </h3>
           )}
@@ -166,7 +166,7 @@ export function Column({ column, tasks }: Props) {
         <div
           ref={setDroppableRef}
           className={`flex-1 overflow-y-auto px-2 pb-2 space-y-2 min-h-[60px] rounded-b-xl transition-colors ${
-            isOver ? 'bg-indigo-50/50 dark:bg-indigo-900/10' : ''
+            isOver ? 'bg-gray-200/50 dark:bg-gray-700/30' : ''
           }`}
         >
           <SortableContext items={taskIds} strategy={verticalListSortingStrategy}>
@@ -176,7 +176,7 @@ export function Column({ column, tasks }: Props) {
           </SortableContext>
 
           {tasks.length === 0 && !isAddingTask && (
-            <div className={`flex items-center justify-center h-16 rounded-lg border-2 border-dashed text-xs text-gray-400 dark:text-gray-600 transition-colors ${isOver ? 'border-indigo-400 text-indigo-400' : 'border-gray-200 dark:border-gray-700'}`}>
+            <div className={`flex items-center justify-center h-16 rounded-lg border-2 border-dashed text-xs text-gray-400 dark:text-gray-600 transition-colors ${isOver ? 'border-gray-500 text-gray-500' : 'border-gray-200 dark:border-gray-700'}`}>
               {isOver ? 'Drop here' : 'No tasks yet'}
             </div>
           )}
@@ -185,7 +185,7 @@ export function Column({ column, tasks }: Props) {
         {/* Add task */}
         <div className="px-2 pb-2 flex-shrink-0">
           {isAddingTask ? (
-            <div className="bg-white dark:bg-gray-800 rounded-lg border border-indigo-400 p-2 shadow-sm">
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-black dark:border-gray-500 p-2 shadow-sm">
               <input
                 ref={addInputRef}
                 className="w-full text-sm bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-400 focus:outline-none mb-2"
@@ -200,7 +200,7 @@ export function Column({ column, tasks }: Props) {
               <div className="flex gap-1.5">
                 <button
                   onClick={handleAddTask}
-                  className="flex-1 text-xs bg-indigo-600 hover:bg-indigo-700 text-white rounded px-2 py-1 transition-colors"
+                  className="flex-1 text-xs bg-black hover:bg-gray-800 text-white dark:bg-white dark:text-black dark:hover:bg-gray-100 rounded px-2 py-1 transition-colors"
                 >
                   Add task
                 </button>

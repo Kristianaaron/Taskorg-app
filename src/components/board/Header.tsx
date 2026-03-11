@@ -41,8 +41,8 @@ export function Header({ onMenuClick }: Props) {
 
         {/* Logo */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          <Trello size={20} className="text-indigo-600 dark:text-indigo-400" />
-          <span className="font-bold text-gray-900 dark:text-gray-100 text-sm hidden sm:block">TaskOrg</span>
+          <Trello size={20} className="text-black dark:text-white" />
+          <span className="font-serif font-bold text-gray-900 dark:text-gray-100 text-base hidden sm:block tracking-tight">TaskOrg</span>
         </div>
 
         {/* Separator */}
@@ -54,7 +54,7 @@ export function Header({ onMenuClick }: Props) {
             <div className="flex items-center gap-1.5">
               <input
                 autoFocus
-                className="text-sm font-semibold bg-gray-50 dark:bg-gray-800 border border-indigo-400 rounded-lg px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none w-48"
+                className="text-sm font-serif font-semibold bg-gray-50 dark:bg-gray-800 border border-black dark:border-gray-400 rounded-lg px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none w-48"
                 value={titleValue}
                 onChange={e => setTitleValue(e.target.value)}
                 onKeyDown={e => {
@@ -72,7 +72,7 @@ export function Header({ onMenuClick }: Props) {
           ) : (
             <button
               onClick={() => { setTitleValue(activeBoard?.title ?? ''); setIsEditingTitle(true); }}
-              className="flex items-center gap-1.5 text-sm font-semibold text-gray-800 dark:text-gray-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors group truncate"
+              className="flex items-center gap-1.5 text-sm font-serif font-semibold text-gray-800 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors group truncate"
             >
               <span className="truncate">{activeBoard?.title ?? 'No board'}</span>
               <Edit2 size={13} className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />

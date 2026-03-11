@@ -48,8 +48,8 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
       >
         <div className="safe-area-top flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800">
           <div className="flex items-center gap-2">
-            <LayoutDashboard size={18} className="text-indigo-600 dark:text-indigo-400" />
-            <span className="font-bold text-gray-800 dark:text-gray-100 text-sm">My Boards</span>
+            <LayoutDashboard size={18} className="text-black dark:text-white" />
+            <span className="font-serif font-bold text-gray-800 dark:text-gray-100 text-sm tracking-tight">My Boards</span>
           </div>
           <button
             onClick={onClose}
@@ -66,7 +66,7 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
                 onClick={() => { setActiveBoard(board.id); onClose(); }}
                 className={`flex-1 text-left text-sm px-3 py-2 rounded-lg transition-colors truncate ${
                   board.id === activeBoard?.id
-                    ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-medium'
+                    ? 'bg-gray-100 dark:bg-gray-800 text-black dark:text-white font-medium'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
               >
@@ -100,7 +100,7 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
           ))}
 
           {isCreating ? (
-            <div className="mt-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg border border-indigo-300 dark:border-indigo-700">
+            <div className="mt-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg border border-black dark:border-gray-600">
               <input
                 autoFocus
                 className="w-full text-sm bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-400 focus:outline-none mb-2"
@@ -115,7 +115,7 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
               <div className="flex gap-1">
                 <button
                   onClick={handleCreate}
-                  className="flex-1 text-xs bg-indigo-600 hover:bg-indigo-700 text-white rounded px-2 py-1 transition-colors"
+                  className="flex-1 text-xs bg-black hover:bg-gray-800 text-white dark:bg-white dark:text-black dark:hover:bg-gray-100 rounded px-2 py-1 transition-colors"
                 >
                   Create
                 </button>
@@ -130,7 +130,7 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
           ) : (
             <button
               onClick={() => setIsCreating(true)}
-              className="w-full mt-1 flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors"
+              className="w-full mt-1 flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             >
               <Plus size={14} />
               New board
