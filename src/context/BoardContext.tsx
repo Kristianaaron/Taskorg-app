@@ -48,6 +48,7 @@ function reducer(state: AppState, action: Action): AppState {
       const board: Board = {
         id,
         title: action.title,
+        visibility: 'private',
         tags: [],
         columns: [
           { id: col1, title: 'To Do', order: 0, boardId: id },
