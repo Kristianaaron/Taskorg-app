@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, LayoutDashboard, Trash2, X } from 'lucide-react';
+import { Plus, LayoutDashboard, Trash2, X, Lock, Globe } from 'lucide-react';
 import { useBoardContext } from '../../context/BoardContext';
 
 interface Props {
@@ -62,13 +62,17 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
             <div key={board.id} className="group flex items-center gap-1 mb-px">
               <button
                 onClick={() => { setActiveBoard(board.id); onClose(); }}
-                className={`flex-1 text-left text-sm font-sans px-2.5 py-1.5 transition-colors truncate ${
+                className={`flex-1 flex items-center gap-1.5 text-left text-sm font-sans px-2.5 py-1.5 transition-colors min-w-0 ${
                   board.id === activeBoard?.id
                     ? 'text-black dark:text-white font-medium border-l-2 border-black dark:border-white pl-2'
                     : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 pl-3'
                 }`}
               >
-                {board.title}
+                {board.visibility === 'public'
+                  ? <Globe size={11} className="flex-shrink-0 opacity-50" />
+                  : <Lock size={11} className="flex-shrink-0 opacity-30" />
+                }
+                <span className="truncate">{board.title}</span>
               </button>
               {confirmDeleteId === board.id ? (
                 <div className="flex items-center gap-1">

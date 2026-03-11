@@ -41,6 +41,7 @@ export interface Column {
 export interface Board {
   id: string;
   title: string;
+  visibility: 'private' | 'public';
   tags: Tag[];
   columns: Column[];
   tasks: Task[];

@@ -16,6 +16,7 @@ function getDefaultState(): AppState {
   const defaultBoard: Board = {
     id: generateId(),
     title: 'My Board',
+    visibility: 'private',
     tags: [
       { id: generateId(), name: 'Bug', color: 'red' },
       { id: generateId(), name: 'Feature', color: 'green' },
@@ -76,7 +77,12 @@ export const storageService = {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return getDefaultState();
-      return JSON.parse(raw) as AppState;
+      const parsed = JSON.parse(raw) as AppState;
+      // Backfill visibility for boards created before this field was added
+      parsed.boards = parsed.boards.map(b =>
+        b.visibility ? b : { ...b, visibility: 'private' as const }
+      );
+      return parsed;
     } catch {
       return getDefaultState();
     }

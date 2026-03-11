@@ -27,7 +27,9 @@ type Action =
   | { type: 'MOVE_TASK_CROSS_COLUMN'; taskId: string; fromColumnId: string; toColumnId: string; newOrder: number }
   | { type: 'CREATE_TAG'; boardId: string; name: string; color: TagColor }
   | { type: 'UPDATE_TAG'; boardId: string; tag: Tag }
-  | { type: 'DELETE_TAG'; boardId: string; tagId: string };
+  | { type: 'DELETE_TAG'; boardId: string; tagId: string }
+  | { type: 'UPDATE_BOARD_VISIBILITY'; boardId: string; visibility: 'private' | 'public' }
+  | { type: 'IMPORT_BOARD'; board: Board };
 
 // ─── Reducer ─────────────────────────────────────────────────────────────────
 
@@ -245,6 +247,20 @@ function reducer(state: AppState, action: Action): AppState {
         }),
       };
 
+    case 'UPDATE_BOARD_VISIBILITY':
+      return {
+        ...state,
+        boards: state.boards.map(b =>
+          b.id === action.boardId ? { ...b, visibility: action.visibility, updatedAt: now } : b
+        ),
+      };
+
+    case 'IMPORT_BOARD':
+      return {
+        boards: [...state.boards, action.board],
+        activeBoardId: action.board.id,
+      };
+
     default:
       return state;
   }
@@ -274,6 +290,8 @@ interface BoardContextValue {
   createTag: (name: string, color: TagColor) => void;
   updateTag: (tag: Tag) => void;
   deleteTag: (tagId: string) => void;
+  updateBoardVisibility: (boardId: string, visibility: 'private' | 'public') => void;
+  importBoard: (board: Board) => void;
 }
 
 const BoardContext = createContext<BoardContextValue | null>(null);
@@ -361,6 +379,12 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: 'DELETE_TAG', boardId: activeBoard.id, tagId });
   }, [activeBoard]);
 
+  const updateBoardVisibility = useCallback((boardId: string, visibility: 'private' | 'public') =>
+    dispatch({ type: 'UPDATE_BOARD_VISIBILITY', boardId, visibility }), []);
+
+  const importBoard = useCallback((board: Board) =>
+    dispatch({ type: 'IMPORT_BOARD', board }), []);
+
   return (
     <BoardContext.Provider value={{
       state,
@@ -383,6 +407,8 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
       createTag,
       updateTag,
       deleteTag,
+      updateBoardVisibility,
+      importBoard,
     }}>
       {children}
     </BoardContext.Provider>
