@@ -48,7 +48,6 @@ export function Column({ column, tasks }: Props) {
     if (isEditingTitle) titleInputRef.current?.focus();
   }, [isEditingTitle]);
 
-  // Close menu when clicking outside
   useEffect(() => {
     if (!showMenu) return;
     const handler = (e: MouseEvent) => {
@@ -92,13 +91,13 @@ export function Column({ column, tasks }: Props) {
       style={style}
       className="flex-shrink-0 w-72 sm:w-80 flex flex-col"
     >
-      <div className="bg-gray-100 dark:bg-gray-800/80 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col max-h-[calc(100vh-10rem)] shadow-sm">
+      <div className="bg-gray-100 dark:bg-gray-800 border-2 border-black dark:border-gray-600 flex flex-col max-h-[calc(100vh-10rem)]">
         {/* Column header */}
-        <div className="flex items-center gap-2 px-3 py-3 flex-shrink-0">
+        <div className="flex items-center gap-2 px-3 py-3 flex-shrink-0 border-b border-black/10 dark:border-gray-600">
           <div
             {...listeners}
             {...attributes}
-            className="p-0.5 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 cursor-grab active:cursor-grabbing rounded"
+            className="p-0.5 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 cursor-grab active:cursor-grabbing"
             title="Drag to reorder"
           >
             <GripVertical size={15} />
@@ -108,7 +107,7 @@ export function Column({ column, tasks }: Props) {
             <div className="flex-1 flex gap-1.5">
               <input
                 ref={titleInputRef}
-                className="flex-1 text-sm font-mono font-semibold bg-white dark:bg-gray-700 border border-black dark:border-gray-400 rounded px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none"
+                className="flex-1 text-sm font-mono font-semibold bg-white dark:bg-gray-700 border-b-2 border-black dark:border-white px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none"
                 value={editTitle}
                 onChange={e => setEditTitle(e.target.value)}
                 onKeyDown={e => {
@@ -129,7 +128,7 @@ export function Column({ column, tasks }: Props) {
             </h3>
           )}
 
-          <span className="text-xs font-medium text-gray-400 dark:text-gray-500 bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded-full flex-shrink-0">
+          <span className="text-xs font-medium text-gray-500 dark:text-gray-400 border border-gray-400 dark:border-gray-500 px-1.5 py-0.5 flex-shrink-0">
             {tasks.length}
           </span>
 
@@ -137,12 +136,12 @@ export function Column({ column, tasks }: Props) {
           <div className="relative" ref={menuRef}>
             <button
               onClick={() => setShowMenu(p => !p)}
-              className="p-1 rounded text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             >
               <MoreVertical size={15} />
             </button>
             {showMenu && (
-              <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 min-w-[150px]">
+              <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-gray-900 border-2 border-black dark:border-gray-500 brutal-shadow py-1 min-w-[150px]">
                 <button
                   className="w-full text-left flex items-center gap-2 px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   onClick={() => { setIsEditingTitle(true); setShowMenu(false); }}
@@ -165,7 +164,7 @@ export function Column({ column, tasks }: Props) {
         {/* Task list */}
         <div
           ref={setDroppableRef}
-          className={`flex-1 overflow-y-auto px-2 pb-2 space-y-2 min-h-[60px] rounded-b-xl transition-colors ${
+          className={`flex-1 overflow-y-auto px-2 pb-2 space-y-2 min-h-[60px] transition-colors ${
             isOver ? 'bg-gray-200/50 dark:bg-gray-700/30' : ''
           }`}
         >
@@ -176,7 +175,7 @@ export function Column({ column, tasks }: Props) {
           </SortableContext>
 
           {tasks.length === 0 && !isAddingTask && (
-            <div className={`flex items-center justify-center h-16 rounded-lg border-2 border-dashed text-xs text-gray-400 dark:text-gray-600 transition-colors ${isOver ? 'border-gray-500 text-gray-500' : 'border-gray-200 dark:border-gray-700'}`}>
+            <div className={`flex items-center justify-center h-16 border-2 border-dashed text-xs text-gray-400 dark:text-gray-600 transition-colors ${isOver ? 'border-gray-500 text-gray-500' : 'border-gray-300 dark:border-gray-700'}`}>
               {isOver ? 'Drop here' : 'No tasks yet'}
             </div>
           )}
@@ -185,7 +184,7 @@ export function Column({ column, tasks }: Props) {
         {/* Add task */}
         <div className="px-2 pb-2 flex-shrink-0">
           {isAddingTask ? (
-            <div className="bg-white dark:bg-gray-800 rounded-lg border border-black dark:border-gray-500 p-2 shadow-sm">
+            <div className="bg-white dark:bg-gray-900 border-2 border-black dark:border-gray-500 p-2">
               <input
                 ref={addInputRef}
                 className="w-full text-sm bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-400 focus:outline-none mb-2"
@@ -200,13 +199,13 @@ export function Column({ column, tasks }: Props) {
               <div className="flex gap-1.5">
                 <button
                   onClick={handleAddTask}
-                  className="flex-1 text-xs bg-black hover:bg-gray-800 text-white dark:bg-white dark:text-black dark:hover:bg-gray-100 rounded px-2 py-1 transition-colors"
+                  className="flex-1 text-xs bg-black hover:bg-gray-800 text-white dark:bg-white dark:text-black dark:hover:bg-gray-100 px-2 py-1 transition-colors"
                 >
                   Add task
                 </button>
                 <button
                   onClick={() => { setIsAddingTask(false); setNewTaskTitle(''); }}
-                  className="px-2 py-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+                  className="px-2 py-1 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >
                   <X size={14} />
                 </button>
@@ -215,7 +214,7 @@ export function Column({ column, tasks }: Props) {
           ) : (
             <button
               onClick={() => setIsAddingTask(true)}
-              className="w-full flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-200/60 dark:hover:bg-gray-700/60 rounded-lg px-2 py-1.5 transition-colors"
+              className="w-full flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-200/60 dark:hover:bg-gray-700/60 px-2 py-1.5 transition-colors"
             >
               <Plus size={14} />
               Add task

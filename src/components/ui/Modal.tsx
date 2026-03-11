@@ -38,21 +38,21 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
       role="dialog"
       aria-modal="true"
     >
-      {/* Backdrop */}
+      {/* Backdrop — solid, no blur */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60"
         onClick={onClose}
       />
-      {/* Panel */}
+      {/* Panel — square, hard border, offset shadow */}
       <div
-        className={`relative w-full ${sizeClass} bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden`}
+        className={`relative w-full ${sizeClass} bg-white dark:bg-gray-900 border-2 border-black dark:border-white brutal-shadow-md overflow-hidden`}
       >
         {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-serif font-semibold text-gray-900 dark:text-gray-100">{title}</h2>
+          <div className="flex items-center justify-between px-6 py-4 border-b-2 border-black dark:border-white">
+            <h2 className="text-lg font-mono font-semibold text-gray-900 dark:text-gray-100">{title}</h2>
             <button
               onClick={onClose}
-              className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="p-1 text-gray-400 hover:text-black dark:hover:text-white transition-colors"
               aria-label="Close"
             >
               <X size={18} />
@@ -62,7 +62,7 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
         {!title && (
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 z-10 p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="absolute top-3 right-3 z-10 p-1 text-gray-400 hover:text-black dark:hover:text-white transition-colors"
             aria-label="Close"
           >
             <X size={18} />

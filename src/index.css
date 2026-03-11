@@ -51,18 +51,31 @@ select {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* Brutalist offset shadow utilities */
+.brutal-shadow {
+  box-shadow: 2px 2px 0 0 #000;
+}
+.brutal-shadow-md {
+  box-shadow: 4px 4px 0 0 #000;
+}
+.dark .brutal-shadow {
+  box-shadow: 2px 2px 0 0 rgba(255,255,255,0.35);
+}
+.dark .brutal-shadow-md {
+  box-shadow: 4px 4px 0 0 rgba(255,255,255,0.35);
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
+  background: #aaa;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: #555;
 }

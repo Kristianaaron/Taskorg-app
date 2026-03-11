@@ -28,12 +28,12 @@ export function Header({ onMenuClick }: Props) {
   const ThemeIcon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor;
 
   return (
-    <header className="flex-shrink-0 safe-area-top bg-canvas dark:bg-gray-900 border-b border-gray-300/60 dark:border-gray-800 shadow-sm z-20">
+    <header className="flex-shrink-0 safe-area-top bg-canvas dark:bg-gray-900 border-b-2 border-black dark:border-gray-700 z-20">
       <div className="h-14 flex items-center px-4 gap-3">
         {/* Mobile menu button */}
         <button
           onClick={onMenuClick}
-          className="p-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors lg:hidden"
+          className="p-1.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors lg:hidden"
           aria-label="Open menu"
         >
           <Menu size={20} />
@@ -45,7 +45,7 @@ export function Header({ onMenuClick }: Props) {
         </div>
 
         {/* Separator */}
-        <div className="hidden sm:block w-px h-5 bg-gray-200 dark:bg-gray-700" />
+        <div className="hidden sm:block w-px h-5 bg-black/20 dark:bg-gray-700" />
 
         {/* Board title */}
         <div className="flex-1 flex items-center gap-2 min-w-0">
@@ -53,7 +53,7 @@ export function Header({ onMenuClick }: Props) {
             <div className="flex items-center gap-1.5">
               <input
                 autoFocus
-                className="text-base font-mono font-semibold bg-gray-50 dark:bg-gray-800 border border-black dark:border-gray-400 rounded-lg px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none w-48"
+                className="text-base font-mono font-semibold bg-white dark:bg-gray-800 border-b-2 border-black dark:border-white px-2 py-0.5 text-gray-800 dark:text-gray-100 focus:outline-none w-48"
                 value={titleValue}
                 onChange={e => setTitleValue(e.target.value)}
                 onKeyDown={e => {
@@ -81,7 +81,7 @@ export function Header({ onMenuClick }: Props) {
         {/* Theme toggle */}
         <button
           onClick={cycleTheme}
-          className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
+          className="p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
           title={`Theme: ${theme}. Click to cycle.`}
           aria-label="Toggle theme"
         >

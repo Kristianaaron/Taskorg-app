@@ -115,7 +115,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
         {/* Title */}
         <div>
           <input
-            className="w-full text-xl font-bold bg-transparent border-0 border-b-2 border-transparent focus:border-indigo-500 focus:outline-none text-gray-900 dark:text-gray-100 pb-1 transition-colors"
+            className="w-full text-xl font-bold bg-transparent border-0 border-b-2 border-transparent focus:border-black dark:focus:border-white focus:outline-none text-gray-900 dark:text-gray-100 pb-1 transition-colors"
             value={title}
             onChange={e => setTitle(e.target.value)}
             onBlur={handleTitleBlur}
@@ -142,7 +142,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
             ))}
             <button
               onClick={() => setShowTagPanel(p => !p)}
-              className="inline-flex items-center gap-1 text-xs text-indigo-600 dark:text-indigo-400 hover:underline"
+              className="inline-flex items-center gap-1 text-xs text-black dark:text-gray-300 hover:underline"
             >
               <Plus size={12} />
               {taskTags.length === 0 ? 'Add tag' : 'Edit tags'}
@@ -150,7 +150,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
           </div>
 
           {showTagPanel && (
-            <div className="mt-2 p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 space-y-3">
+            <div className="mt-2 p-3 border-2 border-black dark:border-gray-600 bg-gray-50 dark:bg-gray-900/40 space-y-3">
               {/* Available tags to toggle */}
               {availableTags.length > 0 && (
                 <div>
@@ -162,7 +162,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                         <button
                           key={tag.id}
                           onClick={() => toggleTag(tag)}
-                          className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full border transition-opacity hover:opacity-80 ${c.bg} ${c.text} ${c.border}`}
+                          className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 border transition-opacity hover:opacity-80 ${c.bg} ${c.text} ${c.border}`}
                         >
                           <Plus size={10} />
                           {tag.name}
@@ -178,7 +178,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                 <p className="text-xs text-gray-500 dark:text-gray-400 mb-1.5">Create new tag:</p>
                 <div className="flex gap-2 flex-wrap">
                   <input
-                    className="flex-1 min-w-[100px] text-xs px-2.5 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="flex-1 min-w-[100px] text-xs px-2.5 py-1.5 border border-black dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:border-black"
                     placeholder="Tag name"
                     value={newTagName}
                     onChange={e => setNewTagName(e.target.value)}
@@ -187,7 +187,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                   <select
                     value={newTagColor}
                     onChange={e => setNewTagColor(e.target.value as TagColor)}
-                    className="text-xs px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="text-xs px-2 py-1.5 border border-black dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none"
                   >
                     {TAG_COLOR_OPTIONS.map(o => (
                       <option key={o.value} value={o.value}>{o.label}</option>
@@ -211,7 +211,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                         <div key={tag.id} className="flex items-center gap-1">
                           <button
                             onClick={() => toggleTag(tag)}
-                            className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full border transition-all ${c.bg} ${c.text} ${c.border} ${isOn ? 'ring-2 ring-indigo-500 ring-offset-1' : 'opacity-60 hover:opacity-100'}`}
+                            className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 border transition-all ${c.bg} ${c.text} ${c.border} ${isOn ? 'ring-2 ring-black ring-offset-1' : 'opacity-60 hover:opacity-100'}`}
                           >
                             {isOn && <Check size={10} />}
                             {tag.name}
@@ -242,7 +242,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
             </span>
           </div>
           <textarea
-            className="w-full text-sm bg-gray-50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-gray-800 dark:text-gray-200 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 min-h-[80px]"
+            className="w-full text-sm bg-gray-50 dark:bg-gray-900/40 border border-black dark:border-gray-600 px-3 py-2 text-gray-800 dark:text-gray-200 resize-none focus:outline-none focus:border-black placeholder-gray-400 min-h-[80px]"
             value={description}
             onChange={e => setDescription(e.target.value)}
             onBlur={handleDescriptionBlur}
@@ -267,11 +267,11 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
             )}
           </div>
 
-          {/* Progress bar */}
+          {/* Progress bar — flat */}
           {total > 0 && (
-            <div className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mb-3 overflow-hidden">
+            <div className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 mb-3 overflow-hidden">
               <div
-                className="h-full bg-green-500 rounded-full transition-all duration-300"
+                className="h-full bg-black dark:bg-white transition-all duration-300"
                 style={{ width: `${(completed / total) * 100}%` }}
               />
             </div>
@@ -284,13 +284,13 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
                   type="checkbox"
                   checked={item.completed}
                   onChange={() => toggleChecklistItem(task, item.id)}
-                  className="mt-0.5 h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-indigo-600 focus:ring-indigo-500 cursor-pointer flex-shrink-0"
+                  className="mt-0.5 h-4 w-4 border-gray-300 dark:border-gray-600 text-black focus:ring-black cursor-pointer flex-shrink-0"
                 />
                 {editingItemId === item.id ? (
                   <div className="flex-1 flex gap-1.5">
                     <input
                       autoFocus
-                      className="flex-1 text-sm bg-gray-50 dark:bg-gray-900/40 border border-indigo-400 rounded px-2 py-0.5 text-gray-800 dark:text-gray-200 focus:outline-none"
+                      className="flex-1 text-sm bg-gray-50 dark:bg-gray-900/40 border-b-2 border-black dark:border-white px-2 py-0.5 text-gray-800 dark:text-gray-200 focus:outline-none"
                       value={editingItemText}
                       onChange={e => setEditingItemText(e.target.value)}
                       onKeyDown={e => {
@@ -328,7 +328,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
           <div className="flex gap-2 mt-2">
             <input
               ref={checklistInputRef}
-              className="flex-1 text-sm bg-gray-50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
+              className="flex-1 text-sm bg-gray-50 dark:bg-gray-900/40 border border-black dark:border-gray-600 px-3 py-1.5 text-gray-800 dark:text-gray-200 focus:outline-none focus:border-black placeholder-gray-400"
               placeholder="Add an item..."
               value={newChecklistText}
               onChange={e => setNewChecklistText(e.target.value)}
@@ -342,7 +342,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between pt-2 border-t-2 border-black dark:border-gray-700">
           <p className="text-xs text-gray-400 dark:text-gray-500">
             Created {new Date(task.createdAt).toLocaleDateString()}
           </p>

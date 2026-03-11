@@ -42,7 +42,7 @@ export function TaskCard({ task, isOverlay = false }: Props) {
       <div
         {...listeners}
         {...attributes}
-        className="absolute top-2 right-2 p-0.5 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 cursor-grab active:cursor-grabbing rounded opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute top-2 right-2 p-0.5 text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity"
         title="Drag to move"
       >
         <GripVertical size={14} />
@@ -89,7 +89,7 @@ export function TaskCard({ task, isOverlay = false }: Props) {
 
   if (isOverlay) {
     return (
-      <div className="relative group bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-lg p-3 cursor-grabbing rotate-2 scale-105">
+      <div className="relative group bg-white dark:bg-gray-800 border-2 border-black dark:border-gray-400 brutal-shadow-md p-3 cursor-grabbing rotate-1 scale-105">
         {cardContent}
       </div>
     );
@@ -101,7 +101,7 @@ export function TaskCard({ task, isOverlay = false }: Props) {
         ref={setNodeRef}
         style={style}
         onClick={() => !isDragging && setIsModalOpen(true)}
-        className="relative group bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md p-3 cursor-pointer transition-shadow"
+        className="relative group bg-white dark:bg-gray-800 border border-black/20 dark:border-gray-600 hover:border-black dark:hover:border-gray-400 hover:shadow-[2px_2px_0_0_#000] dark:hover:shadow-[2px_2px_0_0_rgba(255,255,255,0.3)] p-3 cursor-pointer transition-colors mt-2"
       >
         {cardContent}
       </div>
