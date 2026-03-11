@@ -6,6 +6,7 @@ import { BoardSidebar } from './components/board/BoardSidebar';
 import { Board } from './components/board/Board';
 import { InstallPrompt } from './components/ui/InstallPrompt';
 import { UpdatePrompt } from './components/ui/UpdatePrompt';
+import { VoiceCommand } from './components/ui/VoiceCommand';
 
 function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -21,6 +22,7 @@ function AppShell() {
       </div>
       <InstallPrompt />
       <UpdatePrompt />
+      <VoiceCommand />
     </div>
   );
 }
