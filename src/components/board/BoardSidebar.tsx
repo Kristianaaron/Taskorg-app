@@ -49,7 +49,7 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
         <div className="safe-area-top flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-800">
           <div className="flex items-center gap-2">
             <LayoutDashboard size={18} className="text-black dark:text-white" />
-            <span className="font-serif font-bold text-gray-800 dark:text-gray-100 text-sm tracking-tight">My Boards</span>
+            <span className="font-mono font-bold text-gray-800 dark:text-gray-100 text-sm">My Boards</span>
           </div>
           <button
             onClick={onClose}
@@ -64,7 +64,7 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
             <div key={board.id} className="group flex items-center gap-1 mb-0.5">
               <button
                 onClick={() => { setActiveBoard(board.id); onClose(); }}
-                className={`flex-1 text-left text-sm px-3 py-2 rounded-lg transition-colors truncate ${
+                className={`flex-1 text-left text-sm font-mono px-3 py-2 rounded-lg transition-colors truncate ${
                   board.id === activeBoard?.id
                     ? 'bg-gray-100 dark:bg-gray-800 text-black dark:text-white font-medium'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
