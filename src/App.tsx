@@ -12,7 +12,7 @@ function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 overflow-hidden">
+    <div className="flex flex-col h-screen bg-canvas dark:bg-gray-950 text-gray-900 dark:text-gray-100 overflow-hidden">
       <Header onMenuClick={() => setSidebarOpen(true)} />
       <div className="flex flex-1 overflow-hidden">
         <BoardSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />

@@ -28,7 +28,7 @@ export function Header({ onMenuClick }: Props) {
   const ThemeIcon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor;
 
   return (
-    <header className="flex-shrink-0 safe-area-top bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm z-20">
+    <header className="flex-shrink-0 safe-area-top bg-canvas dark:bg-gray-900 border-b border-gray-300/60 dark:border-gray-800 shadow-sm z-20">
       <div className="h-14 flex items-center px-4 gap-3">
         {/* Mobile menu button */}
         <button

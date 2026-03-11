@@ -42,7 +42,7 @@ export function BoardSidebar({ isOpen, onClose }: Props) {
 
       {/* Sidebar panel */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-full w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-xl flex flex-col transition-transform duration-200 ${
+        className={`fixed top-0 left-0 z-40 h-full w-64 bg-canvas dark:bg-gray-900 border-r border-gray-300/60 dark:border-gray-800 shadow-xl flex flex-col transition-transform duration-200 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:relative lg:translate-x-0 lg:shadow-none lg:flex-shrink-0`}
       >

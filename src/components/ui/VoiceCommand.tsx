@@ -240,8 +240,8 @@ export function VoiceCommand() {
           onClick={() => setShowHelp(v => !v)}
           className={`w-9 h-9 rounded-full shadow-md flex items-center justify-center transition-colors ${
             showHelp
-              ? 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400'
-              : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400'
+              ? 'bg-black text-white dark:bg-white dark:text-black'
+              : 'bg-canvas dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white hover:border-black dark:hover:border-white'
           }`}
           aria-label="Voice command help"
         >
@@ -254,7 +254,7 @@ export function VoiceCommand() {
           className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all active:scale-95 ${
             isListening
               ? 'bg-red-500 text-white ring-4 ring-red-300 dark:ring-red-800 animate-pulse'
-              : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+              : 'bg-black hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-100 dark:text-black'
           }`}
           aria-label={isListening ? 'Stop listening' : 'Start voice command'}
         >

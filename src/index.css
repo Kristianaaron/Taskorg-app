@@ -2,6 +2,11 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --color-canvas: #F0EDE8;
+  --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+}
+
 * {
   box-sizing: border-box;
 }
