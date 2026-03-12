@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 import { BoardProvider } from './context/BoardContext';
 import { Header } from './components/board/Header';
 import { BoardSidebar } from './components/board/BoardSidebar';
@@ -94,9 +95,11 @@ function AppShell() {
 function App() {
   return (
     <ThemeProvider>
-      <BoardProvider>
-        <AppShell />
-      </BoardProvider>
+      <AuthProvider>
+        <BoardProvider>
+          <AppShell />
+        </BoardProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

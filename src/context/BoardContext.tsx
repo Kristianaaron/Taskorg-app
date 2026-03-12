@@ -4,9 +4,12 @@ import {
   useReducer,
   useEffect,
   useCallback,
+  useRef,
 } from 'react';
 import type { AppState, Board, Column, Task, Tag, ChecklistItem, TagColor } from '../types';
 import { storageService, generateId } from '../services/storage';
+import { useAuth } from './AuthContext';
+import { saveToCloud, loadFromCloud, subscribeToCloud } from '../services/firestoreSync';
 
 // ─── Actions ─────────────────────────────────────────────────────────────────
 
@@ -29,7 +32,8 @@ type Action =
   | { type: 'UPDATE_TAG'; boardId: string; tag: Tag }
   | { type: 'DELETE_TAG'; boardId: string; tagId: string }
   | { type: 'UPDATE_BOARD_VISIBILITY'; boardId: string; visibility: 'private' | 'public' }
-  | { type: 'IMPORT_BOARD'; board: Board };
+  | { type: 'IMPORT_BOARD'; board: Board }
+  | { type: 'REPLACE_STATE'; state: AppState };
 
 // ─── Reducer ─────────────────────────────────────────────────────────────────
 
@@ -262,6 +266,9 @@ function reducer(state: AppState, action: Action): AppState {
         activeBoardId: action.board.id,
       };
 
+    case 'REPLACE_STATE':
+      return action.state;
+
     default:
       return state;
   }
@@ -298,11 +305,53 @@ interface BoardContextValue {
 const BoardContext = createContext<BoardContextValue | null>(null);
 
 export function BoardProvider({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
   const [state, dispatch] = useReducer(reducer, undefined, () => storageService.load());
+  const skipNextCloudWrite = useRef(false);
 
+  // Persist to localStorage always (offline-first)
   useEffect(() => {
     storageService.save(state);
   }, [state]);
+
+  // When user signs in, load cloud state (cloud wins if it exists)
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    loadFromCloud(user.uid).then((cloudState) => {
+      if (cancelled) return;
+      if (cloudState && cloudState.boards.length > 0) {
+        skipNextCloudWrite.current = true;
+        dispatch({ type: 'REPLACE_STATE', state: cloudState });
+      } else {
+        // First sign-in: push local state to cloud
+        saveToCloud(user.uid, state);
+      }
+    });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.uid]);
+
+  // Real-time sync: listen for changes from other devices
+  useEffect(() => {
+    if (!user) return;
+    const unsub = subscribeToCloud(user.uid, (cloudState) => {
+      skipNextCloudWrite.current = true;
+      dispatch({ type: 'REPLACE_STATE', state: cloudState });
+    });
+    return unsub;
+  }, [user]);
+
+  // Save to cloud on every state change (debounced by React batching)
+  useEffect(() => {
+    if (!user) return;
+    if (skipNextCloudWrite.current) {
+      skipNextCloudWrite.current = false;
+      return;
+    }
+    saveToCloud(user.uid, state);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, user?.uid]);
 
   const activeBoard = state.boards.find(b => b.id === state.activeBoardId) ?? null;
 

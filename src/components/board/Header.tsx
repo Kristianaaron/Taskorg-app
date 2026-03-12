@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Menu, Sun, Moon, Monitor, Check, X, Link } from 'lucide-react';
+import { Menu, Sun, Moon, Monitor, Check, X, Link, Cloud, CloudOff } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useBoardContext } from '../../context/BoardContext';
+import { useAuth } from '../../context/AuthContext';
 import { ShareModal } from './ShareModal';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 export function Header({ onMenuClick }: Props) {
   const { theme, setTheme } = useTheme();
   const { activeBoard, updateBoardTitle } = useBoardContext();
+  const { user, signInWithGoogle, signOut } = useAuth();
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [titleValue, setTitleValue] = useState(activeBoard?.title ?? '');
   const [shareOpen, setShareOpen] = useState(false);
@@ -90,6 +92,27 @@ export function Header({ onMenuClick }: Props) {
             >
               <Link size={13} />
               <span className="hidden sm:inline">Share</span>
+            </button>
+          )}
+
+          {/* Cloud sync / auth button */}
+          {user ? (
+            <button
+              onClick={signOut}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-sm border border-black/15 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/8 transition-colors flex-shrink-0"
+              title={`Signed in as ${user.displayName ?? user.email}. Click to sign out.`}
+            >
+              <Cloud size={13} className="text-green-500" />
+              <span className="hidden sm:inline truncate max-w-[100px]">{user.displayName ?? 'Synced'}</span>
+            </button>
+          ) : (
+            <button
+              onClick={signInWithGoogle}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-sm border border-black/15 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/8 transition-colors flex-shrink-0"
+              title="Sign in with Google to sync across devices"
+            >
+              <CloudOff size={13} className="text-gray-400" />
+              <span className="hidden sm:inline">Sign in</span>
             </button>
           )}
 
