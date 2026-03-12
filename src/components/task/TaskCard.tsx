@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { memo, useState, useMemo } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical, CheckSquare, MessageSquare } from 'lucide-react';
+import { GripVertical, CheckSquare, MessageSquare, Link as LinkIcon } from 'lucide-react';
 import { TagBadge } from '../ui/TagBadge';
 import { TaskDetailModal } from './TaskDetailModal';
 import { useBoardContext } from '../../context/BoardContext';
@@ -12,7 +12,7 @@ interface Props {
   isOverlay?: boolean;
 }
 
-export function TaskCard({ task, isOverlay = false }: Props) {
+export const TaskCard = memo(function TaskCard({ task, isOverlay = false }: Props) {
   const { activeBoard } = useBoardContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,10 +31,20 @@ export function TaskCard({ task, isOverlay = false }: Props) {
     opacity: isDragging ? 0.35 : 1,
   };
 
-  const tags = (activeBoard?.tags ?? []).filter(t => task.tagIds.includes(t.id));
+  const tags = useMemo(
+    () => (activeBoard?.tags ?? []).filter(t => task.tagIds.includes(t.id)),
+    [activeBoard?.tags, task.tagIds],
+  );
   const checklistTotal = task.checklistItems.length;
-  const checklistDone = task.checklistItems.filter(i => i.completed).length;
+  const checklistDone = useMemo(
+    () => task.checklistItems.filter(i => i.completed).length,
+    [task.checklistItems],
+  );
+  const commentCount = task.comments?.length ?? 0;
+  const linkCount = task.links?.length ?? 0;
   const hasDescription = task.description.trim().length > 0;
+
+  const indicators = hasDescription || checklistTotal > 0 || commentCount > 0 || linkCount > 0;
 
   const cardContent = (
     <>
@@ -59,11 +69,23 @@ export function TaskCard({ task, isOverlay = false }: Props) {
         {task.title}
       </p>
 
-      {(hasDescription || checklistTotal > 0) && (
+      {indicators && (
         <div className="flex items-center gap-3 mt-2">
           {hasDescription && (
             <span className="flex items-center gap-1 text-xs text-gray-300 dark:text-gray-600">
               <MessageSquare size={11} />
+            </span>
+          )}
+          {commentCount > 0 && (
+            <span className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
+              <MessageSquare size={11} />
+              {commentCount}
+            </span>
+          )}
+          {linkCount > 0 && (
+            <span className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
+              <LinkIcon size={11} />
+              {linkCount}
             </span>
           )}
           {checklistTotal > 0 && (
@@ -111,4 +133,4 @@ export function TaskCard({ task, isOverlay = false }: Props) {
       )}
     </>
   );
-}
+});

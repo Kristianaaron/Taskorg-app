@@ -20,6 +20,14 @@ export interface ChecklistItem {
   completed: boolean;
 }
 
+export interface Comment {
+  id: string;
+  text: string;
+  authorName: string;
+  authorId: string;
+  createdAt: string;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -29,6 +37,8 @@ export interface Task {
   columnId: string;
   order: number;
   createdAt: string;
+  comments?: Comment[];
+  links?: string[];
 }
 
 export interface Column {

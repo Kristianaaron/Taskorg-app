@@ -6,7 +6,7 @@ import {
   useCallback,
   useRef,
 } from 'react';
-import type { AppState, Board, Column, Task, Tag, ChecklistItem, TagColor } from '../types';
+import type { AppState, Board, Column, Task, Tag, ChecklistItem, TagColor, Comment } from '../types';
 import { storageService, generateId } from '../services/storage';
 import { useAuth } from './AuthContext';
 import { saveToCloud, loadFromCloud, subscribeToCloud } from '../services/firestoreSync';
@@ -295,6 +295,10 @@ interface BoardContextValue {
   toggleChecklistItem: (task: Task, itemId: string) => void;
   deleteChecklistItem: (task: Task, itemId: string) => void;
   updateChecklistItem: (task: Task, item: ChecklistItem) => void;
+  addComment: (task: Task, text: string, authorName: string, authorId: string) => void;
+  deleteComment: (task: Task, commentId: string) => void;
+  addLink: (task: Task, url: string) => void;
+  removeLink: (task: Task, url: string) => void;
   createTag: (name: string, color: TagColor) => void;
   updateTag: (tag: Tag) => void;
   deleteTag: (tagId: string) => void;
@@ -308,6 +312,7 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
   const [state, dispatch] = useReducer(reducer, undefined, () => storageService.load());
   const skipNextCloudWrite = useRef(false);
+  const cloudSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Persist to localStorage always (offline-first)
   useEffect(() => {
@@ -342,14 +347,20 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
     return unsub;
   }, [user]);
 
-  // Save to cloud on every state change (debounced by React batching)
+  // Save to cloud on state change — debounced to avoid a write per keystroke
   useEffect(() => {
     if (!user) return;
     if (skipNextCloudWrite.current) {
       skipNextCloudWrite.current = false;
       return;
     }
-    saveToCloud(user.uid, state);
+    if (cloudSaveTimer.current) clearTimeout(cloudSaveTimer.current);
+    cloudSaveTimer.current = setTimeout(() => {
+      saveToCloud(user.uid, state);
+    }, 1000);
+    return () => {
+      if (cloudSaveTimer.current) clearTimeout(cloudSaveTimer.current);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, user?.uid]);
 
@@ -414,6 +425,24 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const addComment = useCallback((task: Task, text: string, authorName: string, authorId: string) => {
+    const comment: Comment = { id: generateId(), text, authorName, authorId, createdAt: new Date().toISOString() };
+    dispatch({ type: 'UPDATE_TASK', task: { ...task, comments: [...(task.comments ?? []), comment] } });
+  }, []);
+
+  const deleteComment = useCallback((task: Task, commentId: string) => {
+    dispatch({ type: 'UPDATE_TASK', task: { ...task, comments: (task.comments ?? []).filter(c => c.id !== commentId) } });
+  }, []);
+
+  const addLink = useCallback((task: Task, url: string) => {
+    if ((task.links ?? []).includes(url)) return;
+    dispatch({ type: 'UPDATE_TASK', task: { ...task, links: [...(task.links ?? []), url] } });
+  }, []);
+
+  const removeLink = useCallback((task: Task, url: string) => {
+    dispatch({ type: 'UPDATE_TASK', task: { ...task, links: (task.links ?? []).filter(l => l !== url) } });
+  }, []);
+
   const createTag = useCallback((name: string, color: TagColor) => {
     if (!activeBoard) return;
     dispatch({ type: 'CREATE_TAG', boardId: activeBoard.id, name, color });
@@ -454,6 +483,10 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
       toggleChecklistItem,
       deleteChecklistItem,
       updateChecklistItem,
+      addComment,
+      deleteComment,
+      addLink,
+      removeLink,
       createTag,
       updateTag,
       deleteTag,

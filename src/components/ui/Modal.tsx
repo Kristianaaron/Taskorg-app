@@ -6,7 +6,7 @@ interface ModalProps {
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
 export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalProps) {
@@ -30,11 +30,14 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
     sm: 'max-w-sm',
     md: 'max-w-lg',
     lg: 'max-w-2xl',
+    xl: 'max-w-4xl',
   }[size];
+
+  const isFullHeight = size === 'xl';
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-16 sm:pt-24"
+      className={`fixed inset-0 z-50 flex items-start justify-center p-4 ${isFullHeight ? 'pt-8 sm:pt-12' : 'pt-16 sm:pt-24'}`}
       role="dialog"
       aria-modal="true"
     >
@@ -45,10 +48,10 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
       />
       {/* Panel */}
       <div
-        className={`relative w-full ${sizeClass} bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 rounded-sm shadow-lg overflow-hidden`}
+        className={`relative w-full ${sizeClass} bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 rounded-sm shadow-lg overflow-hidden ${isFullHeight ? 'h-[85vh] flex flex-col' : ''}`}
       >
         {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-black/8 dark:border-gray-800">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-black/8 dark:border-gray-800 flex-shrink-0">
             <h2 className="text-base font-sans font-semibold text-gray-900 dark:text-gray-100">{title}</h2>
             <button
               onClick={onClose}
@@ -68,7 +71,7 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
             <X size={16} />
           </button>
         )}
-        <div className="overflow-y-auto max-h-[75vh]">
+        <div className={isFullHeight ? 'flex-1 overflow-hidden flex flex-col' : 'overflow-y-auto max-h-[75vh]'}>
           {children}
         </div>
       </div>
