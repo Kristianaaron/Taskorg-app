@@ -48,7 +48,7 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
       />
       {/* Panel */}
       <div
-        className={`relative w-full ${sizeClass} bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 rounded-sm shadow-lg overflow-hidden ${isFullHeight ? 'h-[85vh] flex flex-col' : ''}`}
+        className={`relative w-full ${sizeClass} bg-white dark:bg-gray-900 border border-black/12 dark:border-gray-700 rounded-sm shadow-lg overflow-hidden ${isFullHeight ? 'h-[90vh] md:h-[85vh] flex flex-col' : ''}`}
       >
         {title && (
           <div className="flex items-center justify-between px-6 py-4 border-b border-black/8 dark:border-gray-800 flex-shrink-0">

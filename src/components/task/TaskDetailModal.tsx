@@ -180,10 +180,10 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
         </div>
 
         {/* ── Body: two panels ──────────────────────────────────── */}
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
 
           {/* Left panel — details */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-5 border-r border-black/8 dark:border-gray-800">
+          <div className="flex-1 overflow-y-auto p-5 space-y-5 border-b md:border-b-0 md:border-r border-black/8 dark:border-gray-800">
 
             {/* Tags */}
             <div>
@@ -422,8 +422,8 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
             </div>
           </div>
 
-          {/* Right panel — comments */}
-          <div className="w-72 flex flex-col flex-shrink-0">
+          {/* Right panel — comments (2x width of left on desktop) */}
+          <div className="flex-[2] flex flex-col min-h-[250px] md:min-h-0">
             <div className="flex items-center gap-2 px-4 py-3 border-b border-black/8 dark:border-gray-800 flex-shrink-0">
               <MessageSquare size={13} className="text-gray-400 dark:text-gray-500" />
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
