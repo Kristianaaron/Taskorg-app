@@ -151,8 +151,9 @@ export function Board() {
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex-1 overflow-x-auto board-scroll">
-        <div className="flex gap-4 p-4 md:p-6 h-full items-start min-w-max">
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-x-auto overflow-y-hidden board-scroll">
+          <div className="flex gap-4 p-4 md:p-6 h-full items-start min-w-max">
           <SortableContext items={columnIds} strategy={horizontalListSortingStrategy}>
             {sortedColumns.map(column => (
               <Column
@@ -203,7 +204,10 @@ export function Board() {
               Add column
             </button>
           )}
+          </div>
         </div>
+        {/* Scrollbar track — always visible */}
+        <div className="flex-shrink-0 h-2 mx-4 md:mx-6 mb-2 bg-black/[0.04] dark:bg-white/[0.04] rounded-full" />
       </div>
 
       {/* Drag Overlay */}
