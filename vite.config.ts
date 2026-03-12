@@ -9,6 +9,10 @@ const base = process.env.GITHUB_ACTIONS ? '/Taskorg-app/' : '/';
 
 export default defineConfig({
   base,
+  server: {
+    host: true,
+    port: 5173,
+  },
   plugins: [
     react(),
     tailwindcss(),
