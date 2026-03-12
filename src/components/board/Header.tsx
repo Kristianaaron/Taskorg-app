@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { Menu, Sun, Moon, Monitor, Check, X, Link, Cloud, CloudOff } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Menu, Sun, Moon, Monitor, Check, X, Link, LogOut } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useBoardContext } from '../../context/BoardContext';
 import { useAuth } from '../../context/AuthContext';
 import { ShareModal } from './ShareModal';
+import { SignInModal } from '../ui/SignInModal';
 
 interface Props {
   onMenuClick: () => void;
@@ -12,10 +13,13 @@ interface Props {
 export function Header({ onMenuClick }: Props) {
   const { theme, setTheme } = useTheme();
   const { activeBoard, updateBoardTitle } = useBoardContext();
-  const { user, signInWithGoogle, signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [titleValue, setTitleValue] = useState(activeBoard?.title ?? '');
   const [shareOpen, setShareOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   const handleSaveTitle = () => {
     if (titleValue.trim() && activeBoard) {
@@ -30,6 +34,17 @@ export function Header({ onMenuClick }: Props) {
   };
 
   const ThemeIcon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor;
+
+  // Close user menu on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   return (
     <>
@@ -95,23 +110,49 @@ export function Header({ onMenuClick }: Props) {
             </button>
           )}
 
-          {/* Cloud sync / auth button */}
+          {/* Auth */}
           {user ? (
-            <button
-              onClick={signOut}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-sm border border-black/15 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/8 transition-colors flex-shrink-0"
-              title={`Signed in as ${user.displayName ?? user.email}. Click to sign out.`}
-            >
-              <Cloud size={13} className="text-green-500" />
-              <span className="hidden sm:inline truncate max-w-[100px]">{user.displayName ?? 'Synced'}</span>
-            </button>
+            <div className="relative flex-shrink-0" ref={userMenuRef}>
+              <button
+                onClick={() => setUserMenuOpen(v => !v)}
+                className="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-sm border border-black/15 dark:border-gray-600 hover:bg-black/5 dark:hover:bg-white/8 transition-colors"
+                title={user.displayName ?? user.email ?? 'Signed in'}
+              >
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt="" className="w-6 h-6 rounded-full" />
+                ) : (
+                  <div className="w-6 h-6 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black text-xs font-bold">
+                    {(user.displayName ?? user.email ?? '?')[0].toUpperCase()}
+                  </div>
+                )}
+                <span className="hidden sm:inline text-xs font-medium text-gray-700 dark:text-gray-200 truncate max-w-[80px]">
+                  {user.displayName?.split(' ')[0] ?? 'Me'}
+                </span>
+              </button>
+
+              {userMenuOpen && (
+                <div className="absolute right-0 top-full mt-1.5 w-52 bg-white dark:bg-gray-900 border border-black/10 dark:border-gray-700 rounded-sm shadow-lg z-50 overflow-hidden">
+                  <div className="px-3 py-2.5 border-b border-black/8 dark:border-gray-800">
+                    <p className="text-xs font-medium text-gray-900 dark:text-gray-100 truncate">{user.displayName}</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500 truncate">{user.email}</p>
+                    <p className="text-xs text-green-500 mt-0.5">● Syncing to cloud</p>
+                  </div>
+                  <button
+                    onClick={() => { signOut(); setUserMenuOpen(false); }}
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    <LogOut size={13} />
+                    Sign out
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <button
-              onClick={signInWithGoogle}
+              onClick={() => setSignInOpen(true)}
               className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-sm border border-black/15 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/8 transition-colors flex-shrink-0"
-              title="Sign in with Google to sync across devices"
             >
-              <CloudOff size={13} className="text-gray-400" />
+              <div className="w-4 h-4 rounded-full border border-dashed border-gray-400 dark:border-gray-500" />
               <span className="hidden sm:inline">Sign in</span>
             </button>
           )}
@@ -128,6 +169,7 @@ export function Header({ onMenuClick }: Props) {
       </header>
 
       <ShareModal isOpen={shareOpen} onClose={() => setShareOpen(false)} />
+      <SignInModal isOpen={signInOpen} onClose={() => setSignInOpen(false)} />
     </>
   );
 }
