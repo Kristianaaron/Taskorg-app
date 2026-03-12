@@ -206,8 +206,6 @@ export function Board() {
           )}
           </div>
         </div>
-        {/* Scrollbar track — always visible */}
-        <div className="flex-shrink-0 h-2 mx-4 md:mx-6 mb-2 bg-black/[0.04] dark:bg-white/[0.04] rounded-full" />
       </div>
 
       {/* Drag Overlay */}
