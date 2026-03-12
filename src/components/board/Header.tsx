@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Menu, Sun, Moon, Monitor, Check, X, Link, LogOut } from 'lucide-react';
+import { Menu, Sun, Moon, Monitor, Check, X, Link, LogOut, User } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useBoardContext } from '../../context/BoardContext';
 import { useAuth } from '../../context/AuthContext';
@@ -119,10 +119,10 @@ export function Header({ onMenuClick }: Props) {
                 title={user.displayName ?? user.email ?? 'Signed in'}
               >
                 {user.photoURL ? (
-                  <img src={user.photoURL} alt="" className="w-6 h-6 rounded-full" />
+                  <img src={user.photoURL} alt="" className="w-6 h-6 rounded-full" referrerPolicy="no-referrer" />
                 ) : (
-                  <div className="w-6 h-6 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black text-xs font-bold">
-                    {(user.displayName ?? user.email ?? '?')[0].toUpperCase()}
+                  <div className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                    <User size={14} className="text-gray-400 dark:text-gray-500" />
                   </div>
                 )}
                 <span className="hidden sm:inline text-xs font-medium text-gray-700 dark:text-gray-200 truncate max-w-[80px]">

@@ -151,7 +151,7 @@ export function Board() {
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex-1 overflow-x-auto">
+      <div className="flex-1 overflow-x-auto board-scroll">
         <div className="flex gap-4 p-4 md:p-6 h-full items-start min-w-max">
           <SortableContext items={columnIds} strategy={horizontalListSortingStrategy}>
             {sortedColumns.map(column => (
