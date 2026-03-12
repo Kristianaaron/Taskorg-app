@@ -98,7 +98,7 @@ export function Header({ onMenuClick }: Props) {
           {activeBoard && (
             <button
               onClick={() => setShareOpen(true)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-sm border transition-colors flex-shrink-0 ${
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 h-8 text-xs font-medium rounded-sm border transition-colors flex-shrink-0 ${
                 activeBoard.visibility === 'public'
                   ? 'border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100'
                   : 'border-black/15 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/8'
@@ -115,14 +115,14 @@ export function Header({ onMenuClick }: Props) {
             <div className="relative flex-shrink-0" ref={userMenuRef}>
               <button
                 onClick={() => setUserMenuOpen(v => !v)}
-                className="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-sm border border-black/15 dark:border-gray-600 hover:bg-black/5 dark:hover:bg-white/8 transition-colors"
+                className="flex items-center gap-2 pl-1 pr-2.5 py-1 h-8 rounded-sm border border-black/15 dark:border-gray-600 hover:bg-black/5 dark:hover:bg-white/8 transition-colors"
                 title={user.displayName ?? user.email ?? 'Signed in'}
               >
                 {user.photoURL ? (
-                  <img src={user.photoURL} alt="" className="w-6 h-6 rounded-full" referrerPolicy="no-referrer" />
+                  <img src={user.photoURL} alt="" className="w-5 h-5 rounded-full" referrerPolicy="no-referrer" />
                 ) : (
-                  <div className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                    <User size={14} className="text-gray-400 dark:text-gray-500" />
+                  <div className="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                    <User size={12} className="text-gray-400 dark:text-gray-500" />
                   </div>
                 )}
                 <span className="hidden sm:inline text-xs font-medium text-gray-700 dark:text-gray-200 truncate max-w-[80px]">
@@ -150,7 +150,7 @@ export function Header({ onMenuClick }: Props) {
           ) : (
             <button
               onClick={() => setSignInOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-sm border border-black/15 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/8 transition-colors flex-shrink-0"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 h-8 text-xs font-medium rounded-sm border border-black/15 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/8 transition-colors flex-shrink-0"
             >
               <div className="w-4 h-4 rounded-full border border-dashed border-gray-400 dark:border-gray-500" />
               <span className="hidden sm:inline">Sign in</span>

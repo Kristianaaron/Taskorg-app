@@ -81,7 +81,7 @@ select {
 
 /* Board horizontal scrollbar — always visible */
 .board-scroll {
-  overflow-x: auto;
+  overflow-x: scroll;
   scrollbar-color: #ccc transparent;
 }
 .board-scroll::-webkit-scrollbar {
