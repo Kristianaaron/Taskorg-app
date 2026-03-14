@@ -183,7 +183,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
 
           {/* Left panel — details */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-5 border-b md:border-b-0 md:border-r border-black/8 dark:border-gray-800">
+          <div className="flex-[3] overflow-y-auto p-5 space-y-5 border-b md:border-b-0 md:border-r border-black/8 dark:border-gray-800">
 
             {/* Tags */}
             <div>
