@@ -183,7 +183,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
 
           {/* Left panel — details */}
-          <div className="flex-1 md:basis-[60%] md:max-w-[60%] overflow-y-auto p-5 space-y-5 border-b md:border-b-0 md:border-r border-black/8 dark:border-gray-800">
+          <div className="overflow-y-auto p-5 space-y-5 border-b md:border-b-0 md:border-r border-black/8 dark:border-gray-800" style={{ flex: '3 1 0' }}>
 
             {/* Tags */}
             <div>
@@ -423,7 +423,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
           </div>
 
           {/* Right panel — comments */}
-          <div className="flex-1 md:basis-[40%] md:max-w-[40%] flex flex-col min-h-[250px] md:min-h-0">
+          <div className="flex flex-col min-h-[250px] md:min-h-0" style={{ flex: '2 1 0' }}>
             <div className="flex items-center gap-2 px-4 py-3 border-b border-black/8 dark:border-gray-800 flex-shrink-0">
               <MessageSquare size={13} className="text-gray-400 dark:text-gray-500" />
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
