@@ -57,7 +57,7 @@ function reducer(state: AppState, action: Action): AppState {
         columns: [
           { id: col1, title: 'To Do', order: 0, boardId: id },
           { id: col2, title: 'In Progress', order: 1, boardId: id },
-          { id: col3, title: 'Done', order: 2, boardId: id },
+          { id: col3, title: 'Closed', order: 2, boardId: id },
         ],
         tasks: [],
         createdAt: now,
