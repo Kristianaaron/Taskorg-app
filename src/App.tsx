@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import { BoardProvider } from './context/BoardContext';
+import { SharedBoardView } from './components/guest/SharedBoardView';
 import { Header } from './components/board/Header';
 import { BoardSidebar } from './components/board/BoardSidebar';
 import { Board } from './components/board/Board';
@@ -92,7 +93,18 @@ function AppShell() {
   );
 }
 
+// Detect guest share links before rendering the full app
+const sharedBoardId = new URLSearchParams(window.location.search).get('sharedBoard');
+
 function App() {
+  if (sharedBoardId) {
+    return (
+      <ThemeProvider>
+        <SharedBoardView boardId={sharedBoardId} />
+      </ThemeProvider>
+    );
+  }
+
   return (
     <ThemeProvider>
       <AuthProvider>

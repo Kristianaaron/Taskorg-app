@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useReducer,
+  useState,
   useEffect,
   useCallback,
   useRef,
@@ -10,6 +11,7 @@ import type { AppState, Board, Column, Task, Tag, ChecklistItem, TagColor, Comme
 import { storageService, generateId } from '../services/storage';
 import { useAuth } from './AuthContext';
 import { saveToCloud, loadFromCloud, subscribeToCloud } from '../services/firestoreSync';
+import { publishSharedBoard, subscribeToGuestComments, type GuestComment } from '../services/sharedBoardSync';
 
 // ─── Actions ─────────────────────────────────────────────────────────────────
 
@@ -304,6 +306,7 @@ interface BoardContextValue {
   deleteTag: (tagId: string) => void;
   updateBoardVisibility: (boardId: string, visibility: 'private' | 'public') => void;
   importBoard: (board: Board) => void;
+  guestComments: GuestComment[];
 }
 
 const BoardContext = createContext<BoardContextValue | null>(null);
@@ -311,6 +314,7 @@ const BoardContext = createContext<BoardContextValue | null>(null);
 export function BoardProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
   const [state, dispatch] = useReducer(reducer, undefined, () => storageService.load());
+  const [guestComments, setGuestComments] = useState<GuestComment[]>([]);
   const skipNextCloudWrite = useRef(false);
   const cloudSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -364,7 +368,27 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, user?.uid]);
 
+  // Publish public boards to sharedBoards collection so guests can view them live
+  useEffect(() => {
+    if (!user) return;
+    const publicBoards = state.boards.filter(b => b.visibility === 'public');
+    if (publicBoards.length === 0) return;
+    const timer = setTimeout(() => {
+      publicBoards.forEach(board => publishSharedBoard(board));
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [state, user]);
+
   const activeBoard = state.boards.find(b => b.id === state.activeBoardId) ?? null;
+
+  // Subscribe to guest comments for the active public board
+  useEffect(() => {
+    if (!activeBoard || activeBoard.visibility !== 'public') {
+      setGuestComments([]);
+      return;
+    }
+    return subscribeToGuestComments(activeBoard.id, setGuestComments);
+  }, [activeBoard?.id, activeBoard?.visibility]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const createBoard = useCallback((title: string) => dispatch({ type: 'CREATE_BOARD', title }), []);
   const updateBoardTitle = useCallback((boardId: string, title: string) =>
@@ -492,6 +516,7 @@ export function BoardProvider({ children }: { children: React.ReactNode }) {
       deleteTag,
       updateBoardVisibility,
       importBoard,
+      guestComments,
     }}>
       {children}
     </BoardContext.Provider>

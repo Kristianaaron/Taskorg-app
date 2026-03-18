@@ -58,6 +58,7 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
     removeLink,
     createTag,
     deleteTag,
+    guestComments,
   } = useBoardContext();
   const { user } = useAuth();
 
@@ -79,7 +80,14 @@ export function TaskDetailModal({ task, isOpen, onClose }: Props) {
   const allTags = useMemo(() => activeBoard?.tags ?? [], [activeBoard?.tags]);
   const taskTags = useMemo(() => allTags.filter(t => task.tagIds.includes(t.id)), [allTags, task.tagIds]);
   const availableTags = useMemo(() => allTags.filter(t => !task.tagIds.includes(t.id)), [allTags, task.tagIds]);
-  const comments = task.comments ?? [];
+  // Merge owner comments with PM guest comments, sorted by time
+  const comments = useMemo(() => [
+    ...(task.comments ?? []).map(c => ({ ...c, isGuest: false })),
+    ...guestComments
+      .filter(c => c.taskId === task.id)
+      .map(c => ({ id: c.id, text: c.text, authorName: c.authorName, authorId: 'guest', createdAt: c.createdAt, isGuest: true })),
+  ].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()),
+  [task.comments, task.id, guestComments]);
   const links = task.links ?? [];
 
   const save = useCallback((patch: Partial<Task>) => {

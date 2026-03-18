@@ -14,6 +14,12 @@ export function getShareUrl(board: Board): string {
   return `${base}?share=${encodeBoard(board)}`;
 }
 
+/** Live share URL — guests see the board in real-time and can comment. */
+export function getSharedBoardUrl(boardId: string): string {
+  const base = `${window.location.origin}${window.location.pathname}`;
+  return `${base}?sharedBoard=${boardId}`;
+}
+
 export function getShareParam(): string | null {
   return new URLSearchParams(window.location.search).get('share');
 }

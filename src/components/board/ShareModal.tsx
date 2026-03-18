@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Lock, Globe, Copy, Check } from 'lucide-react';
 import { Modal } from '../ui/Modal';
 import { useBoardContext } from '../../context/BoardContext';
-import { getShareUrl } from '../../utils/boardShare';
+import { getSharedBoardUrl } from '../../utils/boardShare';
 
 interface Props {
   isOpen: boolean;
@@ -16,7 +16,7 @@ export function ShareModal({ isOpen, onClose }: Props) {
   if (!activeBoard) return null;
 
   const isPublic = activeBoard.visibility === 'public';
-  const shareUrl = isPublic ? getShareUrl(activeBoard) : '';
+  const shareUrl = isPublic ? getSharedBoardUrl(activeBoard.id) : '';
 
   const handleVisibilityChange = (v: 'private' | 'public') => {
     updateBoardVisibility(activeBoard.id, v);
@@ -91,7 +91,7 @@ export function ShareModal({ isOpen, onClose }: Props) {
                   Public
                 </p>
                 <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                  Anyone with the link can view and import a copy.
+                  Anyone with the link can view live and leave comments.
                 </p>
               </div>
               {isPublic && (
@@ -132,7 +132,7 @@ export function ShareModal({ isOpen, onClose }: Props) {
         {/* Footer note */}
         <p className="text-xs text-gray-400 dark:text-gray-500 border-t border-black/8 dark:border-gray-800 pt-3">
           {isPublic
-            ? 'Recipients get a read-only snapshot. Changes you make after sharing are not synced.'
+            ? 'Recipients see your board live. Their comments appear on your cards in real-time.'
             : 'Switch to Public to generate a shareable link.'}
         </p>
       </div>
